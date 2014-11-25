@@ -9,16 +9,6 @@
 
 <body>
 
-<!--nav>
-  <a href="items.html">Let's Go</a>
-  <ul>
-    <li><a href="../index.html">主页</a></li>
-    <li><a href="items.html">商品列表</a></li>
-    <li><a href="#">购物车(<span id="count">2</span>)</a></li>
-  </ul>
-</nav-->
-
-
 <div class="navbar navbar-inverse" style="min-height:35px">
   <div class="nav-collapse" style="height:auto">
     <ul class="nav">
@@ -32,47 +22,47 @@
         <a href="items.html">商品列表</a>
       </li>
       <li class="shopping-cart active">
-        <a href="cart.html">购物车 (<span id="count">2</span>)</a>
+        <a href="cart.html">
+          <span class="glyphicon glyphicon-shopping-cart"></span>购物车 (<span id="count">2</span>)
+        </a>
       </li>
     </ul>
   </div>
 </div>
 
-
-<div>
-  <h4>购物清单</h4>
-  <table>
+<div class="pay-table">
+  <table class="table table-bordered table-items">
+    <caption id="pay-table-title">购物清单</caption>
     <thead>
-    <tr>
-      <th>名称</th>
-      <th>单价(元)</th>
-      <th>单位</th>
-      <th>数量</th>
-      <th>小计</th>
-    </tr>
+      <tr>
+        <th>名称</th>
+        <th>单价(元)</th>
+        <th>单位</th>
+        <th>数量</th>
+        <th>小计</th>
+      </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>可口可乐</td>
-      <td>3</td>
-      <td>瓶</td>
-      <td>1</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>雪碧</td>
-      <td>3</td>
-      <td>瓶</td>
-      <td>1</td>
-      <td>3</td>
-    </tr>
+      <!--example-->
+      <tr>
+        <td>COCO</td>
+        <td>3</td>
+        <td>听</td>
+        <td>
+          <button type="button" class="btn btn-default" id="min" onclick="min_count()">-</button>
+          <input  id="item-num" type="text" value="1">
+          <button type="button" class="btn btn-default" id="add" onclick="add_count()">+</button>
+        </td>
+        <td>12.00元</td>
+      </tr>
+
     </tbody>
   </table>
-</div>
 
-<div>
-  <p>总计：<span>6.00元</span></p>
-  <a href="./payment.html">付款</a>
+  <div class="table-summary">
+    <p id="summary">总计：9元</p>
+    <a href="payment.html"><button type="button" class="btn btn-primary btn-size">付款</button></a>
+  </div>
 </div>
 
 <script type="text/javascript" src="../lib/jquery-2.1.1/jquery-2.1.1.js"></script>
@@ -83,6 +73,7 @@
 <script type="text/javascript" src="../scripts/model/promotion.js"></script>
 <script type="text/javascript" src="../scripts/utils.js"></script>
 <script type="text/javascript" src="../scripts/main.js"></script>
+<script type="text/javascript" src="../scripts/modify_item_num.js"></script>
 
 </body>
 </html>
