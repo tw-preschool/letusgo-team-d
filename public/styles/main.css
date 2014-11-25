@@ -76,3 +76,23 @@ th{
   height:31px;
   margin:0;
 }
+.item-manage{
+  text-align:center;
+}
+.item-manage a{
+  color:#ffffff;
+  font-size:30px;
+  text-decoration:none;
+}
+.add-items{
+  width:1200px;
+  border:2px solid #D0D0D0;
+  margin:20px auto;
+}
+
+.form-control{
+  width:80%;
+}
+.form-group{
+  margin-top:15px;
+}
