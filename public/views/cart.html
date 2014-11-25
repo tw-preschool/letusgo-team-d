@@ -3,19 +3,41 @@
 <head>
   <meta charset="utf-8">
   <title>Pos Web</title>
+  <link rel="stylesheet" href="../lib/bootstrap-3.2.0-dist/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="../styles/main.css"/>
 </head>
 
 <body>
 
-<nav>
+<!--nav>
   <a href="items.html">Let's Go</a>
   <ul>
     <li><a href="../index.html">主页</a></li>
     <li><a href="items.html">商品列表</a></li>
     <li><a href="#">购物车(<span id="count">2</span>)</a></li>
   </ul>
-</nav>
+</nav-->
+
+
+<div class="navbar navbar-inverse" style="min-height:35px">
+  <div class="nav-collapse" style="height:auto">
+    <ul class="nav">
+      <li >
+        <a href="items.html">Let's Go</a>
+      </li>
+      <li >
+        <a href="../index.html">主页</a>
+      </li>
+      <li>
+        <a href="items.html">商品列表</a>
+      </li>
+      <li class="shopping-cart active">
+        <a href="cart.html">购物车 (<span id="count">2</span>)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
 
 <div>
   <h4>购物清单</h4>
