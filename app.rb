@@ -7,7 +7,7 @@ require './models/product'
 
 class POSApplication < Sinatra::Base
     dbconfig = YAML.load(File.open("config/database.yml").read)
-    
+
     configure :development do
         require 'sqlite3'
         ActiveRecord::Base.establish_connection(dbconfig['development'])
@@ -29,15 +29,22 @@ class POSApplication < Sinatra::Base
         File.open('public/index.html').read
     end
 
+    get '/add' do
+        content_type :html
+        File.open('public/views/add.html').read
+    end
+
+
     get '/products' do
         begin
+            content_type :html
+            File.open('public/views/items.html').read
             products = Product.all || []
             products.to_json
         rescue ActiveRecord::RecordNotFound => e
             [404, {:message => e.message}.to_json]
         end
     end
-
 
     get '/products/:id' do
         begin
@@ -64,4 +71,3 @@ class POSApplication < Sinatra::Base
         ActiveRecord::Base.connection.close
     end
 end
-
