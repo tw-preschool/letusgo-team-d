@@ -37,8 +37,7 @@ class POSApplication < Sinatra::Base
 
     get '/products' do
         begin
-            content_type :html
-            File.open('public/views/items.html').read
+
             products = Product.all || []
             products.to_json
         rescue ActiveRecord::RecordNotFound => e

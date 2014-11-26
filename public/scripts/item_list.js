@@ -20,11 +20,13 @@ function loadAllItems() {
 
 function displayItems (items) {
     _(items).each(function (item) {
+
         var listItem = $('<tr>\
                     <td>' + item.name + '</td>\
                     <td>' + item.price + '</td>\
                     <td>' + item.unit + '</td>\
+                    <td> <button type="button" class = "btn btn-primary">加入购物车</button></td>\
                   </tr>');
-        $('#item-table').append(listItem);
+        $('#items-table').append(listItem);
     });
 }
