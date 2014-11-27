@@ -54,6 +54,17 @@ class POSApplication < Sinatra::Base
         end
     end
 
+    post '/products/update' do
+        product = Product.find(params[:id])
+        product.update_attributes(:price => params[:price])
+
+        if product.save
+            [201, {:message => "products/#{product.id}"}.to_json]
+        else
+            halt 500, {:message => "create product failed"}.to_json
+        end
+    end
+
     post '/products' do
         product = Product.create(:name => params[:name],
                             :price => params[:price],
