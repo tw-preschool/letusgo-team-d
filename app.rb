@@ -56,7 +56,8 @@ class POSApplication < Sinatra::Base
 
     post '/products/update' do
         product = Product.find(params[:id])
-        product.update_attributes(:price => params[:price])
+        product.update_attributes(:price => params[:price],
+                                  :unit => params[:unit])
 
         if product.save
             [201, {:message => "products/#{product.id}"}.to_json]

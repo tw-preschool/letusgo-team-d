@@ -7,47 +7,55 @@ $(document).ready(function () {
 		$.ajax({
 				url: '/products',
 				type: 'get',
-
 				error: function() {
 						console.log('Failed to loading item list');
 				},
-
-				success: function (items) {
-						if(hasOwnProduct(name,price,items)){
-						
-						}else{
-									$.ajax({
-										type: "post",
-										url: "/products",
-										data: {"name":name,"price":price,"unit":unit},
-										dataType: "json",
-										success:alert("添加商品"+name+"成功")
-									});
-						}
+				success: function (data) {
+					var id = hasOwnProduct(name,data);
+					if(id>=0){
+						updateProduct(id,price,unit,data);
+					}else{
+						addProduct(name,price,unit);
+					}
 				}
 		});
 	});
 });
 
-
-function hasOwnProduct(name,price,items){
-	for (var item in items) {
-			if(name == items[item].name){
-				$.ajax({
-					type: "post",
-					url: "/products/update",
-					data: {"id":items[item].id,"price":price},
-					dataType: "json",
-					success:
-									alert(
-									items[item].name+
-									"，单价： "+items[item].price+
-									"，单位："+items[item].unit+
-									"\n更新为:\n"+name+
-									"，单价： "+price+"，单位：")
+function addProduct(name,price,unit){
+	$.ajax({
+						type: "post",
+						url: "/products",
+						data: {"name":name,"price":price,"unit":unit},
+						dataType: "json",
+						success:alert("添加商品"+name+"成功")
 				});
-			return true;
+}
+
+
+function hasOwnProduct(name,items){
+	for (var item in items) {
+		if(name == items[item].name){
+			return item;
 		}
 	}
-	return false;
+	return -1;
+}
+
+
+function updateProduct(id,price,unit,items){
+	$.ajax({
+		type: "post",
+		url: "/products/update",
+		data: {"id":id,"price":price,"unit":unit},
+		dataType: "json",
+		success:
+						alert("商品 "+
+						items[id].name+"已存过\n"+
+						"原信息：\n"+
+						"单价： "+items[id].price+
+						"，单位："+items[id].unit+
+						"\n更新为:\n"+name+
+						"单价： "+price+"，单位："+unit)
+	});
 }
