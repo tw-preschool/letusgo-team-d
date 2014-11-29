@@ -1,12 +1,11 @@
 $(document).ready(function () {
-    loadAllItems();
+    loadItems();
 });
 
-function loadAllItems() {
+function loadItems() {
     $.ajax({
         url: '/products',
         type: 'get',
-        timeout: 1000,
 
         error: function() {
             console.log('Failed to loading item list');
@@ -14,6 +13,12 @@ function loadAllItems() {
 
         success: function (items) {
             displayItems(items);
+            shoppingCart.setAllItemList(items);
+            $(".addCartButton").click(function() {
+                itemName = $(this).parent().prev().prev().prev().html();
+                shoppingCart.addItemByName(itemName);
+                updateCountText();
+            });
         }
     });
 }
@@ -25,7 +30,7 @@ function displayItems (items) {
                     <td>' + item.name + '</td>\
                     <td>' + item.price + '</td>\
                     <td>' + item.unit + '</td>\
-                    <td> <button type="button" class = "btn btn-primary">加入购物车</button></td>\
+                    <td> <button type="button" class="btn btn-primary addCartButton">加入购物车</button></td>\
                   </tr>');
         $('#items-table').append(listItem);
     });
