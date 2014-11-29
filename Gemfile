@@ -6,9 +6,11 @@ gem 'activerecord'
 gem 'rack-contrib'
 
 group :development, :test do    
-  	gem 'rack-test'
+    gem 'rack-test'
     gem 'rspec'
+    gem 'capybara'
+    gem 'selenium-webdriver'
     gem 'database_cleaner'
     gem 'shotgun'
-  	gem 'tux'
+    gem 'tux'
 end
