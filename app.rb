@@ -29,13 +29,16 @@ class POSApplication < Sinatra::Base
         content_type :html
         File.open('public/index.html').read
     end
+
     get '/login' do
         content_type:html
         File.open('public/login.html').read
     end
-    post ('/login') do
-      if params[:username]='admin' and params[:password]='admin'
+
+   post '/login' do
+      if params[:username]=='admin' and params[:password]=='admin'
         session['username']=params[:username]
+
       else
         redirect '/login'
       end
