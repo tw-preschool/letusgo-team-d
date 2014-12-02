@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Pos Web Managment</title>
+  <link rel="stylesheet" href="../lib/bootstrap-3.2.0-dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../styles/main.css"/>
+  <link rel="stylesheet" href="../styles/admin.css">
+</head>
+
+<body>
+<div class="navbar navbar-inverse" style="min-height:35px">
+  <div class="nav-collapse" style="height:auto">
+    <ul class="nav">
+      <li>
+        <a href="../index.html">Let's Go</a>
+      </li>
+      <li class="active">
+        <a href="#">商品管理</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="admin-add">
+  <div class="admin-add-title"><p>添加商品<p></div>
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="item-name" class="col-sm-2 control-label">商品名称</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="item-name"
+        placeholder="请输入商品名称">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="item-price" class="col-sm-2 control-label">商品单价</label>
+       <div class="col-sm-10">
+         <input type="text" class="form-control" id="item-price"
+         placeholder="请输入商品单价">
+       </div>
+    </div>
+    <div class="form-group">
+      <label for="item-unit" class="col-sm-2 control-label">商品单位</label>
+       <div class="col-sm-10">
+         <input type="text" class="form-control" id="item-unit"
+         placeholder="请输入商品单位">
+       </div>
+    </div>
+    <div class="form-group">
+        <label for="item-promotion" class="col-sm-2 control-label">促销信息</label>
+        <div class="col-sm-10">
+          <div class="radio">
+          <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios1"
+             value="none" checked>无
+           </label>
+           <label>
+             <input type="radio" name="optionsRadios" id="optionsRadios2"
+             value="buy2get1forfree">买二送一
+           </label>
+         </div>
+       </div>
+     </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button id="submit" class="btn btn-primary">添加商品</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="product-table">
+  <table class="table table-bordered table-items">
+    <caption class="product-table-title">商品列表</caption>
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>单价(元)</th>
+        <th>单位</th>
+        <th>促销类型</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody id="product-table-list">
+    </tbody>
+  </table>
+</div>
+
+
+
+<script type="text/javascript" src="../lib/jquery-2.1.1/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="../lib/bootstrap-3.2.0-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="../lib/lodash-2.4.1/lodash.compat.js"></script>
+
+<script type="text/javascript" src="../scripts/model/item.js"></script>
+<script type="text/javascript" src="../scripts/model/promotion.js"></script>
+<script type="text/javascript" src="../scripts/model/shopping_cart.js"></script>
+<script type="text/javascript" src="../scripts/main.js"></script>
+<script type="text/javascript" src="../scripts/utils.js"></script>
+<script type="text/javascript" src="../scripts/add.js"></script>
+<script type="text/javascript" src="../scripts/admin_item_list.js"></script>
+
+</body>
+</html>

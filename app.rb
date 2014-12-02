@@ -93,6 +93,12 @@ class POSApplication < Sinatra::Base
         end
     end
 
+    post '/products/delete' do
+        product = Product.find(params[:id])
+        product.delete
+    end
+    
+
     after do
         ActiveRecord::Base.connection.close
     end
