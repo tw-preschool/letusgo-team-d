@@ -1,4 +1,5 @@
 require 'sinatra'
+require "sinatra/contrib"
 require 'rack/contrib'
 require 'active_record'
 require 'json'
@@ -7,6 +8,7 @@ require './models/product'
 
 class POSApplication < Sinatra::Base
     enable :sessions
+    helpers Sinatra::ContentFor
     dbconfig = YAML.load(File.open("config/database.yml").read)
 
     configure :development do
@@ -27,29 +29,35 @@ class POSApplication < Sinatra::Base
 
     get '/' do
         content_type :html
-        File.open('public/index.html').read
+        erb :index
     end
+
     get '/login' do
         content_type:html
-        File.open('public/login.html').read
+        erb :login
     end
-    post ('/login') do
+
+    post '/login' do
       if params[:username]='admin' and params[:password]='admin'
         session['username']=params[:username]
       else
-        redirect '/login'
+        redirect '/index'
       end
     end
 
     get '/add' do
         content_type :html
-        File.open('public/views/add.html').read
+        erb :add
+    end
+
+    get %r{views/([^/\.]+)[\.html]?} do |page|
+        content_type :html
+        erb page.to_sym
     end
 
 
     get '/products' do
         begin
-
             products = Product.all || []
             products.to_json
         rescue ActiveRecord::RecordNotFound => e
@@ -64,6 +72,11 @@ class POSApplication < Sinatra::Base
         rescue  ActiveRecord::RecordNotFound => e
             [404, {:message => e.message}.to_json]
         end
+    end
+
+    get '/*' do
+        content_type :html
+        erb :index
     end
 
     post '/products/update' do
@@ -83,7 +96,8 @@ class POSApplication < Sinatra::Base
                             :price => params[:price],
                             :unit => params[:unit])
 
-        if product.save
+        if product.save!
+            puts Product.last.name
             [201, {:message => "products/#{product.id}"}.to_json]
         else
             halt 500, {:message => "create product failed"}.to_json

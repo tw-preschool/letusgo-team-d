@@ -1,18 +1,9 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Pos Web Managment</title>
-  <link rel="stylesheet" href="../lib/bootstrap-3.2.0-dist/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="../styles/main.css"/>
-</head>
-
-<body>
-<div class="navbar navbar-inverse" style="min-height:35px">
-  <div class="nav-collapse item-manage" style="height:auto">
-    <a href="#">商品管理</a>
-  </div>
+<% content_for :navlis do%>
+<div class="item-manage">
+  <a href="#">商品管理</a>
 </div>
+<% end %>
+
 
 <div class="add-items">
   <form class="form-horizontal" role="form">
@@ -46,16 +37,3 @@
     </div>
   </form>
 </div>
-
-
-<script type="text/javascript" src="../lib/jquery-2.1.1/jquery-2.1.1.js"></script>
-<script type="text/javascript" src="../lib/bootstrap-3.2.0-dist/js/bootstrap.js"></script>
-<script type="text/javascript" src="../lib/lodash-2.4.1/lodash.compat.js"></script>
-
-<script type="text/javascript" src="../scripts/model/item.js"></script>
-<script type="text/javascript" src="../scripts/model/promotion.js"></script>
-<script type="text/javascript" src="../scripts/utils.js"></script>
-<script type="text/javascript" src="../scripts/add.js"></script>
-
-</body>
-</html>
