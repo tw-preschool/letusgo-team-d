@@ -27,7 +27,7 @@ class POSApplication < Sinatra::Base
 
     get '/' do
         content_type :html
-        File.open('public/index.html').read
+        erb :index
     end
     get '/login' do
         content_type:html
@@ -43,13 +43,17 @@ class POSApplication < Sinatra::Base
 
     get '/add' do
         content_type :html
-        File.open('public/views/add.html').read
+        erb :add
+    end
+
+    get %r{views/([^/\.]+)[\.html]?} do |page|
+        content_type :html
+        erb page.to_sym
     end
 
 
     get '/products' do
         begin
-
             products = Product.all || []
             products.to_json
         rescue ActiveRecord::RecordNotFound => e
@@ -64,6 +68,11 @@ class POSApplication < Sinatra::Base
         rescue  ActiveRecord::RecordNotFound => e
             [404, {:message => e.message}.to_json]
         end
+    end
+
+    get '/*' do
+        content_type :html
+        erb :index
     end
 
     post '/products/update' do
