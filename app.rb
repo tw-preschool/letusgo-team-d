@@ -6,6 +6,7 @@ require 'json'
 require './models/product'
 
 class POSApplication < Sinatra::Base
+    enable :sessions
     dbconfig = YAML.load(File.open("config/database.yml").read)
 
     configure :development do
@@ -31,6 +32,13 @@ class POSApplication < Sinatra::Base
     get '/login' do
         content_type:html
         File.open('public/login.html').read
+    end
+    post ('/login') do
+      if params[:username]='admin' and params[:password]='admin'
+        session['username']=params[:username]
+      else
+        redirect '/login'
+      end
     end
 
     get '/add' do
