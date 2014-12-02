@@ -1,11 +1,11 @@
 ENV['RACK_ENV'] = 'test'
 
 require 'rspec'
-require 'rack/test' 
+require 'rack/test'
 require 'database_cleaner'
 require 'capybara/rspec'
 
-require_relative File.join('..', 'app')
+require_relative '../app'
 
 Capybara.app = POSApplication
 

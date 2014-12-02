@@ -1,4 +1,5 @@
 require 'sinatra'
+require "sinatra/contrib"
 require 'rack/contrib'
 require 'active_record'
 require 'json'
@@ -7,6 +8,7 @@ require './models/product'
 
 class POSApplication < Sinatra::Base
     enable :sessions
+    helpers Sinatra::ContentFor
     dbconfig = YAML.load(File.open("config/database.yml").read)
 
     configure :development do
@@ -92,7 +94,8 @@ class POSApplication < Sinatra::Base
                             :price => params[:price],
                             :unit => params[:unit])
 
-        if product.save
+        if product.save!
+            puts Product.last.name
             [201, {:message => "products/#{product.id}"}.to_json]
         else
             halt 500, {:message => "create product failed"}.to_json
