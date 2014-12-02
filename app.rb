@@ -28,6 +28,10 @@ class POSApplication < Sinatra::Base
         content_type :html
         File.open('public/index.html').read
     end
+    get '/login' do
+        content_type:html
+        File.open('public/login.html').read
+    end
 
     get '/add' do
         content_type :html
