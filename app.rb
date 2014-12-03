@@ -43,7 +43,6 @@ class POSApplication < Sinatra::Base
     end
 
     get '/admin' do
-        puts session[:username]
       if session[:username] == "admin"
         content_type:html
         erb :'pages/admin'
