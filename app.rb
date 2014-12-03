@@ -34,12 +34,16 @@ class POSApplication < Sinatra::Base
         content_type:html
         File.open('public/login.html').read
     end
-
+   get '/admin' do
+     content_type:html
+     File.open('public/views/admin.html').read
+   end
    post '/login' do
-      if params[:username]=='admin' and params[:password]=='admin'
-        session['username']=params[:username]
-
+      if params['username'] == "admin" and params["pwd"] == "admin"
+        session[:username] == "admin"
+        redirect "/admin"
       else
+        @message="failure!"
         redirect '/login'
       end
     end
@@ -97,7 +101,7 @@ class POSApplication < Sinatra::Base
         product = Product.find(params[:id])
         product.delete
     end
-    
+
 
     after do
         ActiveRecord::Base.connection.close
