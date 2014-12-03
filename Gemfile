@@ -4,6 +4,7 @@ gem 'sinatra'
 gem 'sqlite3'
 gem 'activerecord'
 gem 'rack-contrib'
+gem 'sinatra-contrib'
 gem 'thin'
 
 group :development, :test do

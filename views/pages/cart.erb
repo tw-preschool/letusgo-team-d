@@ -1,0 +1,32 @@
+<%= erb :'layout/_nav' %>
+
+<div class="pay-table">
+  <table class="table table-bordered table-items">
+    <caption id="pay-table-title">购物清单</caption>
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>单价(元)</th>
+        <th>单位</th>
+        <th>数量</th>
+        <th>小计</th>
+      </tr>
+    </thead>
+    <tbody id="cart-table">
+    </tbody>
+  </table>
+
+  <div class="table-summary">
+    <p>总计：<span id="summary"></span>元</p>
+    <a href="payment.html"><button type="button" class="btn btn-primary btn-size">付款</button></a>
+  </div>
+</div>
+
+<% content_for :script_chunk do %>
+  <script type="text/javascript" src="/scripts/model/item.js"></script>
+  <script type="text/javascript" src="/scripts/model/promotion.js"></script>
+  <script type="text/javascript" src="/scripts/model/shopping_cart.js"></script>
+  <script type="text/javascript" src="/scripts/main.js"></script>
+  <script type="text/javascript" src="/scripts/cart.js"></script>
+  <script type="text/javascript" src="/scripts/utils.js"></script>
+<% end %>

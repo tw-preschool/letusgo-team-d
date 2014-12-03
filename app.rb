@@ -1,4 +1,6 @@
 require 'sinatra'
+require 'sinatra/contrib'
+require 'sinatra/reloader'
 require 'rack/contrib'
 require 'active_record'
 require 'json'
@@ -6,8 +8,13 @@ require 'json'
 require './models/product'
 
 class POSApplication < Sinatra::Base
-    enable :sessions
+
     dbconfig = YAML.load(File.open("config/database.yml").read)
+
+    configure do 
+        use Rack::Session::Pool, exprie_after: 60 * 60 * 24 
+        helpers Sinatra::ContentFor
+    end
 
     configure :development do
         require 'sqlite3'
@@ -27,19 +34,19 @@ class POSApplication < Sinatra::Base
 
     get '/' do
         content_type :html
-        File.open('public/index.html').read
+        erb :index
     end
 
     get '/login' do
         content_type:html
-        File.open('public/login.html').read
+        erb :login
     end
 
     get '/admin' do
+        puts session[:username]
       if session[:username] == "admin"
-        put "hello"
         content_type:html
-        File.open('public/views/admin.html').read
+        erb :'pages/admin'
       else
         redirect '/login'
       end
@@ -56,7 +63,7 @@ class POSApplication < Sinatra::Base
 
     get '/add' do
         content_type :html
-        File.open('public/views/add.html').read
+        erb :'pages/add'
     end
 
     get '/products' do
@@ -106,6 +113,10 @@ class POSApplication < Sinatra::Base
         product.delete
     end
 
+    get %r{/?[(views)(pages)]/([^/\.]+)[/.html]?} do |page|
+        content_type :html
+        erb "pages/#{page}".to_sym
+    end
 
     after do
         ActiveRecord::Base.connection.close

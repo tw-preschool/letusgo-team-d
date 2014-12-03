@@ -10,7 +10,7 @@ describe 'Pos Application', :type => :feature do
 
   describe "Index page" do
     it "should display correct content" do
-      visit '/index.html'
+      visit '/'
       expect(page).to have_content("Welcome to Let's Go")
     end
   end
