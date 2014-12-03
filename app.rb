@@ -34,16 +34,22 @@ class POSApplication < Sinatra::Base
         content_type:html
         File.open('public/login.html').read
     end
-   get '/admin' do
-     content_type:html
-     File.open('public/views/admin.html').read
-   end
-   post '/login' do
+
+    get '/admin' do
+      if session[:username] == "admin"
+        put "hello"
+        content_type:html
+        File.open('public/views/admin.html').read
+      else
+        redirect '/login'
+      end
+    end
+
+    post '/login' do
       if params['username'] == "admin" and params["pwd"] == "admin"
-        session[:username] == "admin"
+        session[:username] = "admin"
         redirect "/admin"
       else
-        @message="failure!"
         redirect '/login'
       end
     end
@@ -53,10 +59,8 @@ class POSApplication < Sinatra::Base
         File.open('public/views/add.html').read
     end
 
-
     get '/products' do
         begin
-
             products = Product.all || []
             products.to_json
         rescue ActiveRecord::RecordNotFound => e
