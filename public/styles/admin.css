@@ -26,15 +26,26 @@
 }
 .item-edit{
 
+
 }
 .item-delete{
   margin-left:10px;
+  color:white;
+  background:#428bca;
+  border-color:#357ebd;
+
+}
+.item-delete .active{
+  margin-left:10px;
+  color:white;
+  background:red;
 }
 .item-cancel{
   margin-left:10px;
 }
 .item-confirm{
-
+  background:#428bca;
+  border-color:#357ebd;
 }
 .product-table-add{
   margin:10px;

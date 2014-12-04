@@ -13,7 +13,6 @@ $(document).ready(function () {
             displayItems(items);
             $(".item-edit").on("click", editItem);
             $(".item-delete").on("click", deleteItem);
-
         }
     });
 
@@ -25,7 +24,7 @@ $(document).ready(function () {
                     <td>' + item.price + '</td>\
                     <td>' + item.unit + '</td>\
                     <td>' + 'item.promotion' + '</td>\
-                    <td><button type="button" class="btn btn-primary item-edit">修改</button><button type="button" class="btn btn-primary item-delete">删除</button></td>\
+                    <td><button type="button" class="btn btn-primary item-edit">修改</button><button type="button" class="btn btn-danger item-delete">删除</button></td>\
                   </tr>');
         $('#product-table-list').append(listItem);
     });
@@ -38,15 +37,18 @@ $(document).ready(function () {
     }
     var btnParent = $(this).parent();
     btnParent.append($('<button type="button" class="btn btn-success item-confirm">确定</button>'));
-    btnParent.append($('<button type="button" class="btn btn-warning item-cancel">取消</button>'));
+    btnParent.append($('<button type="button" class="btn btn-primary item-cancel">取消</button>'));
     btnParent.find(".item-edit").remove();
     btnParent.find(".item-delete").remove();
 
     $(".item-confirm").on("click", confirmItem);
     $(".item-cancel").on("click", cancelItem);
+
+    $("body").keydown(function(e){
+      if(e.keyCode==13)
+        $(".item-confirm").click();
+      });
   }
-
-
 
   function deleteItem(){
     if(confirm("确定删除吗?")){
@@ -74,24 +76,23 @@ $(document).ready(function () {
     }
   }
 
-
   function confirmItem(){
     var inputnode = $(this).parent().siblings().find("input");
     for(var i = 0; i<inputnode.length; i++){
       var inputtext = $(inputnode[i]).val();
       var tdNode = $(inputnode[i]).parent();
       tdNode.html(inputtext);
-
     }
 
     var btnParent = $(this).parent();
+
     btnParent.append($('<button type="button" class="btn btn-primary item-edit">修改</button>'));
     btnParent.append($('<button type="button" class="btn btn-danger item-delete">删除</button>'));
     btnParent.find(".item-confirm").remove();
     btnParent.find(".item-cancel").remove();
 
-    $(".item-edit").on("click", editItem);
-    $(".item-delete").on("click", deleteItem);
+    btnParent.find(".item-edit").on("click", editItem);
+    btnParent.find(".item-delete").on("click", deleteItem);
 
     var index = -1;
     var name = $(inputnode[0]).val();
@@ -103,9 +104,7 @@ $(document).ready(function () {
         break;
       }
     }
-
     updateProductAdmin(index, name, price, unit, itemData);
-
   }
 
   function updateProductAdmin(index,name,price,unit,itemData){
@@ -126,17 +125,17 @@ $(document).ready(function () {
       tdNode.html(tdNode[0].getAttribute("value"));
     }
 
-      var btnParent = $(this).parent();
-      btnParent.append($('<button type="button" class="btn btn-primary item-edit">修改</button>'));
-      btnParent.append($('<button type="button" class="btn btn-danger item-delete">删除</button>'));
-      btnParent.find(".item-confirm").remove();
-      btnParent.find(".item-cancel").remove();
+    var btnParent = $(this).parent();
 
-      $(".item-edit").on("click", editItem);
-      $(".item-delete").on("click", deleteItem);
+    btnParent.append($('<button type="button" class="btn btn-primary item-edit">修改</button>'));
+    btnParent.append($('<button type="button" class="btn btn-danger item-delete">删除</button>'));
+    btnParent.find(".item-confirm").remove();
+    btnParent.find(".item-cancel").remove();
+
+    btnParent.find(".item-edit").on("click", editItem);
+    btnParent.find(".item-delete").on("click", deleteItem);
 
   }
-
 
   function tdclick(editRow){
     var td = editRow;
@@ -145,21 +144,6 @@ $(document).ready(function () {
     td.html("");
     var input = $("<input>");
     input.attr("value",text);
-    input.keyup(function(event){
-      var myEvent = event || window.event;
-      var kcode = myEvent.keyCode;
-      if(kcode == 13){
-        var inputnode = $(this);
-        var inputtext = inputnode.val();
-        var tdNode = inputnode.parent();
-        tdNode.html(inputtext);
-        tdNode.click(tdclick);
-      }
-    });
     td.append(input);
-    var inputdom = input.get(0);
-    inputdom.select();
-    td.unbind("click");
   }
-
 });

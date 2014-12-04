@@ -6,7 +6,7 @@
 .nav li a{
   display:inline;
   font-size:18px;
-  color:#F5F5F5;
+  color:lightgray;
 }
 .nav .active a{
   color:white;
