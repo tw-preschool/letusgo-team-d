@@ -1,3 +1,5 @@
+#encoding=UTF-8
+
 require 'sinatra'
 require 'sinatra/contrib'
 require 'sinatra/reloader'
@@ -6,13 +8,14 @@ require 'active_record'
 require 'json'
 
 require './models/product'
+require './models/shopping_cart'
 
 class POSApplication < Sinatra::Base
 
     dbconfig = YAML.load(File.open("config/database.yml").read)
 
-    configure do 
-        use Rack::Session::Pool, exprie_after: 60 * 60 * 24 
+    configure do
+        use Rack::Session::Pool, exprie_after: 60 * 60 * 24
         helpers Sinatra::ContentFor
     end
 
@@ -114,6 +117,28 @@ class POSApplication < Sinatra::Base
     post '/products/delete' do
         product = Product.find(params[:id])
         product.delete
+    end
+
+    post '/pages/payment' do
+        cart_data = JSON.parse params[:cart_data]
+        @shopping_cart = ShoppingCart.new()
+        @shopping_cart.init_with_Data cart_data
+        @shopping_cart.update_price
+        puts "================"
+        puts "总价格：" + format("%0.2f", @shopping_cart.sum_price) + " 总折扣：" + format("%0.2f", @shopping_cart.sum_discount)
+        puts "----------------"
+        @shopping_cart.shopping_list.each do |item|
+            puts item.name + "购买" + item.amount.to_s + item.unit + "，实际价格" + format("%0.2f", item.kindred_price)
+        end
+        puts "----------------"
+        @shopping_cart.discount_list.each do |discount_item|
+            puts discount_item.name + "打折" + discount_item.discount_amount.to_s + discount_item.unit
+        end
+        puts "================"
+        #渲染
+        #返回对应的erb
+        content_type :html
+        erb :'/pages/payment'
     end
 
     get %r{/?[(views)(pages)]/([^/\.]+)[/.html]?} do |page|
