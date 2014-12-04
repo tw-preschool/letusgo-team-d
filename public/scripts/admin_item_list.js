@@ -37,7 +37,7 @@ $(document).ready(function () {
       tdclick($(editRow[i]));
     }
     var btnParent = $(this).parent();
-    btnParent.append($('<button type="button" class="btn btn-danger item-confirm">确定</button>'));
+    btnParent.append($('<button type="button" class="btn btn-success item-confirm">确定</button>'));
     btnParent.append($('<button type="button" class="btn btn-warning item-cancel">取消</button>'));
     btnParent.find(".item-edit").remove();
     btnParent.find(".item-delete").remove();
@@ -86,7 +86,7 @@ $(document).ready(function () {
 
     var btnParent = $(this).parent();
     btnParent.append($('<button type="button" class="btn btn-primary item-edit">修改</button>'));
-    btnParent.append($('<button type="button" class="btn btn-primary item-delete">删除</button>'));
+    btnParent.append($('<button type="button" class="btn btn-danger item-delete">删除</button>'));
     btnParent.find(".item-confirm").remove();
     btnParent.find(".item-cancel").remove();
 
@@ -128,7 +128,7 @@ $(document).ready(function () {
 
       var btnParent = $(this).parent();
       btnParent.append($('<button type="button" class="btn btn-primary item-edit">修改</button>'));
-      btnParent.append($('<button type="button" class="btn btn-primary item-delete">删除</button>'));
+      btnParent.append($('<button type="button" class="btn btn-danger item-delete">删除</button>'));
       btnParent.find(".item-confirm").remove();
       btnParent.find(".item-cancel").remove();
 
