@@ -1,25 +1,30 @@
 <%= erb :'layout/_nav' %>
 
-<div class="pay-table">
-  <table class="table table-bordered table-items">
-    <caption id="pay-table-title">购物清单</caption>
-    <thead>
-      <tr>
-        <th>名称</th>
-        <th>单价(元)</th>
-        <th>单位</th>
-        <th>数量</th>
-        <th>小计</th>
-      </tr>
-    </thead>
-    <tbody id="cart-table">
-    </tbody>
-  </table>
-
-  <div class="table-summary">
-    <p>总计：<span id="summary"></span>元</p>
-    <button id="pay" type="button" class="btn btn-primary btn-size">付款</button>
-  </div>
+<div class="container">
+  <div class="pay-table table-responsive">
+    <table class="table table-bordered table-items table-hover">
+      <caption id="pay-table-title">购物清单</caption>
+      <thead>
+        <tr>
+          <th>名称</th>
+          <th>单价(元)</th>
+          <th>单位</th>
+          <th>数量</th>
+          <th>小计</th>
+        </tr>
+      </thead>
+      <tbody id="cart-table">
+      </tbody>
+    </table>
+    
+    <div class="row">
+      <div class="col-sm-10"></div>
+      <div class="col-sm-2">
+        <p>总计：<span id="summary"></span>元</p>
+        <button id="pay" type="button" class="btn btn-primary btn-size">付款</button>
+      </div>
+    </div>
+  </div> 
 </div>
 
 <% content_for :script_chunk do %>

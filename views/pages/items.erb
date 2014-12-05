@@ -1,18 +1,22 @@
 <%= erb :'layout/_nav' %>
 
-<table class="table table-bordered table-items">
-  <caption id="items-list">商品列表</caption>
-  <thead>
-    <tr>
-      <th>名称</th>
-      <th>单价(元)</th>
-      <th>单位</th>
-      <th>添加</th>
-    </tr>
-  </thead>
-  <tbody id ="items-table">
-  </tbody>
-</table>
+<div class="container">
+  <div class="pay-table container table-responsive">
+    <table class="table table-bordered table-items table-hover">
+      <caption id="items-list">商品列表</caption>
+      <thead>
+        <tr>
+          <th>名称</th>
+          <th>单价(元)</th>
+          <th>单位</th>
+          <th>添加</th>
+        </tr>
+      </thead>
+      <tbody id="items-table">
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <% content_for :script_chunk do %>
   <script type="text/javascript" src="/scripts/model/item.js"></script>
