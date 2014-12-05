@@ -1,7 +1,8 @@
 $(document).ready(function () {
-    var cartList = JSON.parse(window.sessionStorage.shoppingCart);
+    // var cartList = JSON.parse(window.sessionStorage.shoppingCart);
+    var shoppingCart = new ShoppingCart();
 
-    _(cartList).each(function (item) {
+    _(shoppingCart.getItemList()).each(function (item) {
         var subtotal = item.itemType.price * item.amount;
         var listItem = $('<tr>\
                     <td>' + item.itemType.name + '</td>\
@@ -15,29 +16,57 @@ $(document).ready(function () {
         $('#cart-table').append(listItem);
     });
 
+    $(".min").each(function(){
+        selectedInput = $(this).next();
+        if (parseInt(selectedInput.val()) == 1)
+          $(this).attr('disabled', true);
+    });
+
     $(function () {
         setSummary();
         var selectedInput;
 
         $(".add").click(function(){
             selectedInput = $(this).prev();
-            selectedInput.val(parseInt(selectedInput.val()) + 1)
+            selectedInput.val(parseInt(selectedInput.val()) + 1);
             if (parseInt(selectedInput.val()) != 1){
                 $(this).prev().prev().attr('disabled',false);
             }
-            setSubtotal();
-        }) 
-        
+            updateCart();
+        });
+
         $(".min").click(function(){
             selectedInput = $(this).next();
+            selectedInput.val(parseInt(selectedInput.val()) - 1);
             if (parseInt(selectedInput.val()) == 1){
                 $(this).attr('disabled',true);
             }
-            else {
-                selectedInput.val(parseInt(selectedInput.val()) - 1);
-            }
+            updateCart();
+        });
+
+        $("#pay").click(function(){
+            var postForm = document.createElement("form");
+            postForm.action = '/pages/payment';
+            postForm.method = 'post';
+            postForm.enctype = 'multipart/form-data';
+            // postForm.dataType = 'json';
+            postForm.style.display = 'none';
+            // postForm.dataset = window.sessionStorage.shoppingCart;
+            var postText = document.createElement("textarea");
+            postText.name = "cart_data";
+            postText.value = window.sessionStorage.shoppingCart;
+            postForm.appendChild(postText);
+            document.body.appendChild(postForm);
+            postForm.submit();
+            return false;
+        });
+
+        function updateCart() {
+            var amount = selectedInput.val();
+            var item = shoppingCart.selectItemByName(selectedInput.parent().prev().prev().prev().html());
+            shoppingCart.updateItem(item.itemType, amount);
             setSubtotal();
-        })
+        }
 
         function setSubtotal() {
             var price = selectedInput.parent().prev().prev().html();
@@ -49,9 +78,8 @@ $(document).ready(function () {
             var summary = 0;
             $("[id=subtotal]").each(function() {
                 summary += parseFloat($(this).html());
-            })
+            });
             $("#summary").text(summary.toFixed(2));
         }
-    })
+    });
 });
-

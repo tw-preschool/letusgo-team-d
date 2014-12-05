@@ -1,3 +1,5 @@
+#encoding=UTF-8
+
 require 'sinatra'
 require 'sinatra/base'
 require 'rack-flash'
@@ -9,6 +11,7 @@ require 'active_record'
 require 'json'
 
 require './models/product'
+require './models/shopping_cart'
 
 class POSApplication < Sinatra::Base
     dbconfig = YAML.load(File.open("config/database.yml").read)
@@ -89,8 +92,12 @@ class POSApplication < Sinatra::Base
 
     post '/products/update' do
         product = Product.find(params[:id])
-        product.update_attributes(:price => params[:price],
-                                  :unit => params[:unit])
+        product.update_attributes(
+            :name => params[:name],
+            :price => params[:price],
+            :unit => params[:unit],
+            :is_promotional => params[:is_promotional]
+        )
 
         if product.save
             [201, {:message => "products/#{product.id}"}.to_json]
@@ -114,6 +121,16 @@ class POSApplication < Sinatra::Base
     post '/products/delete' do
         product = Product.find(params[:id])
         product.delete
+    end
+
+    post '/pages/payment' do
+        cart_data = JSON.parse params[:cart_data]
+        @shopping_cart = ShoppingCart.new()
+        @shopping_cart.init_with_Data cart_data
+        @shopping_cart.update_price
+        
+        content_type :html
+        erb :'/pages/payment'
     end
 
     get %r{/?[(views)(pages)]/([^/\.]+)[/.html]?} do |page|

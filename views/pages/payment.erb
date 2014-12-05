@@ -13,52 +13,67 @@
       </tr>
     </thead>
     <tbody>
-      <!--example-->
-      <tr>
-        <td>COCO</td>
-        <td>3</td>
-        <td>听</td>
-        <td>4</td>
-        <td>12.00元</td>
-      </tr>
+      <% @shopping_cart.shopping_list.each do |item| %>
+        <tr>
+          <td>
+            <%= "#{item.name}" %>
+          </td>
+          <td>
+            <%= "#{item.price}" %>
+          </td>
+          <td>
+            <%= "#{item.unit}" %>
+          </td>
+          <td>
+            <%= "#{item.amount}" %>
+          </td>
+          <td>
+            <%= "#{format("%0.2f", item.kindred_price)} 元" %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
+  
+  <% if @shopping_cart.sum_discount > 0 %>
+    <table class="table table-bordered table-items">
+      <caption id="pay-table-title">赠送商品</caption>
+      <thead>
+        <tr>
+          <th>分类</th>
+          <th>名称</th>
+          <th>数量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shopping_cart.discount_list.each do |discount_item| %>
+          <tr>
+            <td>
+              买二送一
+            </td>
+            <td>
+              <%= "#{discount_item.name}" %>
+            </td>
+            <td>
+              <%= "#{discount_item.discount_amount}" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 
-
-  <table class="table table-bordered table-items">
-    <caption id="pay-table-title">赠送商品</caption>
-    <thead>
-      <tr>
-        <th>分类</th>
-        <th>名称</th>
-        <th>数量</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!--example-->
-      <tr>
-        <td>买二送一</td>
-        <td>COCO</td>
-        <td>1</td>
-      </tr>
-    </tbody>
-  </table>
   <div class="table-summary">
-    <p id="summary">总计：9元</p>
-    <p id="save">节约：3元</p>
+    <p id="summary"><%= "总计：#{format("%0.2f", @shopping_cart.sum_price)} 元" %></p>
+    <p id="save"><%= "节约：#{format("%0.2f", @shopping_cart.sum_discount)} 元" %></p>
     <button type="button" class="btn btn-primary btn-size">确认</button>
   </div>
 </div>
 
 <% content_for :script_chunk do %>
-  <script type="text/javascript" src="../lib/jquery-2.1.1/jquery-2.1.1.js"></script>
-  <script type="text/javascript" src="../lib/bootstrap-3.2.0-dist/js/bootstrap.js"></script>
-  <script type="text/javascript" src="../lib/lodash-2.4.1/lodash.compat.js"></script>
   <script type="text/javascript" src="../scripts/model/item.js"></script>
   <script type="text/javascript" src="../scripts/model/promotion.js"></script>
   <script type="text/javascript" src="../scripts/model/shopping_cart.js"></script>
   <script type="text/javascript" src="../scripts/main.js"></script>
   <script type="text/javascript" src="../scripts/utils.js"></script>
 <% end %>
-</body>
-</html>
