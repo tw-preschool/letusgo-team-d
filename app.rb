@@ -1,18 +1,21 @@
 require 'sinatra'
+require 'sinatra/base'
+require 'rack-flash'
 require 'sinatra/contrib'
 require 'sinatra/reloader'
 require 'rack/contrib'
 require 'active_record'
+
 require 'json'
 
 require './models/product'
 
 class POSApplication < Sinatra::Base
-
     dbconfig = YAML.load(File.open("config/database.yml").read)
 
-    configure do 
-        use Rack::Session::Pool, exprie_after: 60 * 60 * 24 
+    configure do
+        use Rack::Session::Pool, exprie_after: 60 * 60 * 24
+        use Rack::Flash, :sweep => true
         helpers Sinatra::ContentFor
     end
 
@@ -56,6 +59,7 @@ class POSApplication < Sinatra::Base
         session[:username] = "admin"
         redirect "/admin"
       else
+        flash[:notice] = "Authentication failed,please try again!"
         redirect '/login'
       end
     end

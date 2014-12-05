@@ -1,5 +1,10 @@
 <%= erb :'layout/_nav' %>
-
+<% if flash[:notice]%>
+  <div class="alert alert-danger">
+     <a class="close" data-dismiss="alert">×</a>
+     <div class="notice"><%= flash[:notice]%></div>
+  </div>
+<% end %>
 <div class="login">
   <div class="login-title"><p>用户登陆<p></div>
   <form action="/login" class="form-horizontal" role="form" method="post">
