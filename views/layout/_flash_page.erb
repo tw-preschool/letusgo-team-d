@@ -1,0 +1,23 @@
+<div id="row">
+    <% if flash[:success]%>
+        <div class="alert alert-success">
+            <a class="close" data-dismiss="alert">×</a>
+            <div class="notice"><%= flash[:success]%></div>
+        </div>
+    <% elsif flash[:warning]%>
+        <div class="alert alert-warning">
+            <a class="close" data-dismiss="alert">×</a>
+            <div class="notice"><%= flash[:warning]%></div>
+        </div>
+    <% elsif flash[:error]%>
+        <div class="alert alert-danger">
+            <a class="close" data-dismiss="alert">×</a>
+            <div class="notice"><%= flash[:error]%></div>
+        </div>
+    <% elsif flash[:notice]%>
+        <div class="alert alert-info">
+            <a class="close" data-dismiss="alert" type="button">×</a>
+            <div class="notice"><%= flash[:notice]%></div>
+        </div>
+    <% end %>
+</div>

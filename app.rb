@@ -53,6 +53,7 @@ class POSApplication < Sinatra::Base
         content_type:html
         erb :'pages/admin'
       else
+        flash[:warning] = "Session失效，请先登录再进行操作！"
         redirect '/login'
       end
     end
@@ -60,9 +61,10 @@ class POSApplication < Sinatra::Base
     post '/login' do
       if params['username'] == "admin" and params["pwd"] == "admin"
         session[:username] = "admin"
+        flash[:success] = "登录成功！"
         redirect "/admin"
       else
-        flash[:notice] = "Authentication failed,please try again!"
+        flash[:error] = "用户名/密码错误，请重试！"
         redirect '/login'
       end
     end
