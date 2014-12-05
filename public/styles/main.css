@@ -14,12 +14,6 @@
 .nav .active a:hover{
   color:gray;
 }
-.nav .shopping-cart{
-  float:right;
-}
-.nav .logIn{
-  float:right;
-}
 #container{
   background-color:whitesmoke;
   width:1200px;
