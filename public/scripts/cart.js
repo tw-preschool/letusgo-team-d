@@ -1,7 +1,8 @@
 $(document).ready(function () {
-    var cartList = JSON.parse(window.sessionStorage.shoppingCart);
+    // var cartList = JSON.parse(window.sessionStorage.shoppingCart);
+    var shoppingCart = new ShoppingCart();
 
-    _(cartList).each(function (item) {
+    _(shoppingCart.getItemList()).each(function (item) {
         var subtotal = item.itemType.price * item.amount;
         var listItem = $('<tr>\
                     <td>' + item.itemType.name + '</td>\
@@ -31,7 +32,7 @@ $(document).ready(function () {
             if (parseInt(selectedInput.val()) != 1){
                 $(this).prev().prev().attr('disabled',false);
             }
-            setSubtotal();
+            updateCart();
         });
 
         $(".min").click(function(){
@@ -40,7 +41,7 @@ $(document).ready(function () {
             if (parseInt(selectedInput.val()) == 1){
                 $(this).attr('disabled',true);
             }
-            setSubtotal();
+            updateCart();
         });
 
         $("#pay").click(function(){
@@ -59,6 +60,13 @@ $(document).ready(function () {
             postForm.submit();
             return false;
         });
+
+        function updateCart() {
+            var amount = selectedInput.val();
+            var item = shoppingCart.selectItemByName(selectedInput.parent().prev().prev().prev().html());
+            shoppingCart.updateItem(item.itemType, amount);
+            setSubtotal();
+        }
 
         function setSubtotal() {
             var price = selectedInput.parent().prev().prev().html();

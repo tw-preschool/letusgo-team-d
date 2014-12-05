@@ -14,10 +14,13 @@ class ShoppingCart
     def init_with_Data cart_data
         cart_data.each do |item|
             db_item = Product.where(name: item["itemType"]["name"]).first
-            db_item.amount = item["amount"]
-            db_item.kindred_price = 0.0
-            db_item.discount_amount = 0;
-            @shopping_list.push db_item if db_item
+            puts item.to_json
+            if db_item
+                db_item.amount = item["amount"]
+                db_item.kindred_price = 0.0
+                db_item.discount_amount = 0;
+                @shopping_list.push db_item
+            end
         end
     end
 
