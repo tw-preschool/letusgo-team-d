@@ -15,6 +15,12 @@ $(document).ready(function () {
         $('#cart-table').append(listItem);
     });
 
+    $(".min").each(function(){
+        selectedInput = $(this).next();
+        if (parseInt(selectedInput.val()) == 1)
+          $(this).attr('disabled', true);
+    });
+
     $(function () {
         setSummary();
         var selectedInput;
@@ -30,11 +36,9 @@ $(document).ready(function () {
 
         $(".min").click(function(){
             selectedInput = $(this).next();
+            selectedInput.val(parseInt(selectedInput.val()) - 1);
             if (parseInt(selectedInput.val()) == 1){
                 $(this).attr('disabled',true);
-            }
-            else {
-                selectedInput.val(parseInt(selectedInput.val()) - 1);
             }
             setSubtotal();
         });
