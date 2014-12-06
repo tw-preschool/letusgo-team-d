@@ -13,6 +13,11 @@ $(document).ready(function () {
             displayItems(items);
             $(".item-edit").on("click", editItem);
             $(".item-delete").on("click", deleteItem);
+            $(".item-delete").on("mouseenter",function(){
+              $(this).css({'background':'#FF0000','border-color':'#FF0000'});
+            }).on("mouseleave",function(){
+              $(this).css({'background':'#428bca','border-color':'#357ebd'});
+            });
         }
     });
 
@@ -98,12 +103,17 @@ $(document).ready(function () {
     var btnParent = $(this).parent();
 
     btnParent.append($('<button type="button" class="btn btn-primary item-edit">修改</button>'));
-    btnParent.append($('<button type="button" class="btn btn-danger item-delete">删除</button>'));
+    btnParent.append($('<button type="button" class="btn btn-primary item-delete">删除</button>'));
     btnParent.find(".item-confirm").remove();
     btnParent.find(".item-cancel").remove();
 
     btnParent.find(".item-edit").on("click", editItem);
     btnParent.find(".item-delete").on("click", deleteItem);
+    btnParent.find(".item-delete").on("mouseenter",function(){
+      $(this).css({'background':'#FF0000','border-color':'#FF0000'});
+    }).on("mouseleave",function(){
+        $(this).css({'background':'#428bca','border-color':'#357ebd'});
+    });
 
     var index = -1;
     var name = $(inputnode[0]).val();
@@ -141,12 +151,17 @@ $(document).ready(function () {
 
     var btnParent = $(this).parent();
     btnParent.append($('<button type="button" class="btn btn-primary item-edit">修改</button>'));
-    btnParent.append($('<button type="button" class="btn btn-danger item-delete">删除</button>'));
+    btnParent.append($('<button type="button" class="btn btn-primary item-delete">删除</button>'));
     btnParent.find(".item-confirm").remove();
     btnParent.find(".item-cancel").remove();
 
     btnParent.find(".item-edit").on("click", editItem);
     btnParent.find(".item-delete").on("click", deleteItem);
+    btnParent.find(".item-delete").on("mouseenter",function(){
+      $(this).css({'background':'#FF0000','border-color':'#FF0000'});
+    }).on("mouseleave",function(){
+        $(this).css({'background':'#428bca','border-color':'#357ebd'});
+    });
   }
 
   function tdclick(editRow){

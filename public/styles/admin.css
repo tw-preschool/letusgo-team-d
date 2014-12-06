@@ -24,14 +24,9 @@
 }
 .item-edit{
 
-
 }
 .item-delete{
   margin-left:10px;
-  color:white;
-  background:#428bca;
-  border-color:#357ebd;
-
 }
 .item-delete .active{
   margin-left:10px;
