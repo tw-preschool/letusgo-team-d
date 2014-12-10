@@ -15,7 +15,7 @@ function loadItems() {
             displayItems(items);
             shoppingCart.setAllItemList(items);
             $(".addCartButton").click(function() {
-                itemName = $(this).parent().prev().prev().prev().html();
+                itemName = $(this).parents("tr").find("td:first").html();
                 shoppingCart.addItemByName(itemName);
                 updateCountText();
             });
