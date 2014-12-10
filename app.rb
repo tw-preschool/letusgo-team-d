@@ -125,9 +125,9 @@ class POSApplication < Sinatra::Base
         end
     end
 
-    post '/products/delete' do
+    delete '/products/:id' do
         product = Product.find(params[:id])
-        product.delete
+        product.destroy
         [201, {:message => "delect success"}.to_json]
     end
 

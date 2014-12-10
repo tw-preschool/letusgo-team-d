@@ -78,9 +78,8 @@ $(document).ready(function () {
       itemLine.remove();
 
       $.ajax({
-        type: "post",
-        url: "/products/delete",
-        data: {"id":itemData[index].id},
+        type: "delete",
+        url: "/products/"+itemData[index].id,
         dataType: "json",
         success:function (data) {
             alert("商品 "+name+" 删除成功!");
