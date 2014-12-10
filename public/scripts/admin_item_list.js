@@ -90,7 +90,7 @@ $(document).ready(function () {
 
   function confirmItem(){
     $(this).parent().prev().find("input").bootstrapSwitch('toggleReadonly');
-    var is_promotional = $(this).parent().prev().find("input").bootstrapSwitch('state');
+    var isPromotional = $(this).parent().prev().find("input").bootstrapSwitch('state');
 
     var inputnode = $(this).parent().siblings().find("input");
     for(var i = 0; i<inputnode.length-1; i++){
@@ -122,14 +122,14 @@ $(document).ready(function () {
         break;
       }
     }
-    updateProductAdmin(index,name,price,unit,quantity,description,is_promotional,itemData);
+    updateProductAdmin(index,name,price,unit,quantity,description,isPromotional,itemData);
   }
 
-  function updateProductAdmin(index,name,price,unit,quantity,description,is_promotional,itemData){
+  function updateProductAdmin(index,name,price,unit,quantity,description,isPromotional,itemData){
     $.ajax({
       type: "post",
       url: "/products/update",
-      data: {"id":itemData[index].id, "name":name, "price":price, "unit":unit,"quantity":quantity,"description":description, "is_promotional": is_promotional },
+      data: {"id":itemData[index].id, "name":name, "price":price, "unit":unit,"quantity":quantity,"description":description, "is_promotional": isPromotional },
       dataType: "json",
       success:
         alert("商品 "+name+"信息已更新!")
@@ -167,4 +167,5 @@ $(document).ready(function () {
     input.attr("value",text);
     td.append(input);
   }
+});
 });
