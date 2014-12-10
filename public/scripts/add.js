@@ -13,7 +13,7 @@ $(document).ready(function () {
 		var name = $('#item-name').val();
 		var price = $('#item-price').val();
 		var unit = $('#item-unit').val();
-		var quantity = $('#item-quantity').val();
+		var quantity = $('#item-quantity').val() || 0;
 		var description = $('#item-description').val();
 
 		var item = hasOwnProduct(name,itemsData);

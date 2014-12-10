@@ -168,4 +168,3 @@ $(document).ready(function () {
     td.append(input);
   }
 });
-});
