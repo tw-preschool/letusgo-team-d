@@ -98,6 +98,7 @@ class POSApplication < Sinatra::Base
             :name => params[:name],
             :price => params[:price],
             :unit => params[:unit],
+            :quantity => params[:quantity],
             :description => params[:description],
             :is_promotional => params[:is_promotional]
         )
@@ -113,6 +114,7 @@ class POSApplication < Sinatra::Base
         product = Product.create(:name => params[:name],
                             :price => params[:price],
                             :unit => params[:unit],
+                            :quantity => params[:quantity],
                             :description => params[:description])
 
         if product.save
@@ -132,7 +134,7 @@ class POSApplication < Sinatra::Base
         @shopping_cart = ShoppingCart.new()
         @shopping_cart.init_with_Data cart_data
         @shopping_cart.update_price
-        
+
         content_type :html
         erb :'/pages/payment'
     end

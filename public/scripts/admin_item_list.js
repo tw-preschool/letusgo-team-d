@@ -21,10 +21,12 @@ $(document).ready(function () {
     _(items).each(function (item) {
         var checked = (item.is_promotional) ? 'checked' : '';
         var description = (item.description) ? item.description : '';
+        var quantity = (item.quantity>0) ? item.quantity : 0;
         var listItem = $('<tr>\
                     <td>' + item.name + '</td>\
                     <td>' + item.price + '</td>\
                     <td>' + item.unit + '</td>\
+                    <td>' + quantity + '</td>\
                     <td><p>' + description + '</p></td>\
                     <td><input type="checkbox" name="promotion-checkbox" ' + checked + '></td>\
                     <td><button type="button" class="btn btn-primary item-edit">修改</button>\
@@ -95,14 +97,14 @@ $(document).ready(function () {
       var inputtext = $(inputnode[i]).val();
       var tdNode = $(inputnode[i]).parent();
       if(i != inputnode.length-2){
-        tdNode.html(inputtext);  
+        tdNode.html(inputtext);
       }else{
         var pTag = $("<p></p>");
-        tdNode.find("input").replaceWith(pTag);;
+        tdNode.find("input").replaceWith(pTag);
         tdNode.find("p").html(inputtext);
-        
+
       }
-      
+
     }
 
     recoveryEditButton($(this).parent());
@@ -111,7 +113,8 @@ $(document).ready(function () {
     var name = $(inputnode[0]).val();
     var price = $(inputnode[1]).val();
     var unit = $(inputnode[2]).val();
-    var description = $(inputnode[3]).val();
+    var quantity = $(inputnode[3]).val();
+    var description = $(inputnode[4]).val();
 
     for (var i in itemData) {
       if(name == itemData[i].name){
@@ -119,14 +122,14 @@ $(document).ready(function () {
         break;
       }
     }
-    updateProductAdmin(index, name, price, unit, description, is_promotional, itemData);
+    updateProductAdmin(index,name,price,unit,quantity,description,is_promotional,itemData);
   }
 
-  function updateProductAdmin(index,name,price,unit,description,is_promotional,itemData){
+  function updateProductAdmin(index,name,price,unit,quantity,description,is_promotional,itemData){
     $.ajax({
       type: "post",
       url: "/products/update",
-      data: {"id":itemData[index].id, "name":name, "price":price, "unit":unit,"description":description, "is_promotional": is_promotional },
+      data: {"id":itemData[index].id, "name":name, "price":price, "unit":unit,"quantity":quantity,"description":description, "is_promotional": is_promotional },
       dataType: "json",
       success:
         alert("商品 "+name+"信息已更新!")

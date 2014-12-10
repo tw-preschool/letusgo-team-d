@@ -26,10 +26,12 @@ function loadItems() {
 function displayItems (items) {
     _(items).each(function (item) {
         var description = (item.description) ? item.description : '';
+        var quantity = (item.quantity>0) ? item.quantity : 0;
         var listItem = $('<tr>\
                     <td>' + item.name + '</td>\
                     <td>' + item.price + '</td>\
                     <td>' + item.unit + '</td>\
+                    <td>' + quantity + '</td>\
                     <td>' + description + '</td>\
                     <td> <button type="button" class="btn btn-primary addCartButton">加入购物车</button></td>\
                   </tr>');
