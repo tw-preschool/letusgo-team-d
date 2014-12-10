@@ -82,8 +82,9 @@ $(document).ready(function () {
         url: "/products/delete",
         data: {"id":itemData[index].id},
         dataType: "json",
-        success:
-          alert("商品 "+name+"信息已删除!")
+        success:function (data) {
+            alert("商品 "+name+" 删除成功!");
+        }
       });
     }
   }
@@ -116,6 +117,12 @@ $(document).ready(function () {
     var quantity = $(inputnode[3]).val();
     var description = $(inputnode[4]).val();
 
+    if(quantity<0){
+
+      quantity = 0;
+      alert("商品数量应为非负数，默认为   "+quantity);
+    }
+
     for (var i in itemData) {
       if(name == itemData[i].name){
         index = i;
@@ -126,13 +133,15 @@ $(document).ready(function () {
   }
 
   function updateProductAdmin(index,name,price,unit,quantity,description,isPromotional,itemData){
-    $.ajax({
+      $.ajax({
       type: "post",
       url: "/products/update",
       data: {"id":itemData[index].id, "name":name, "price":price, "unit":unit,"quantity":quantity,"description":description, "is_promotional": isPromotional },
       dataType: "json",
-      success:
-        alert("商品 "+name+"信息已更新!")
+      success:function (item) {
+          alert("商品 "+item.name+" 信息已更新!");
+      }
+
     });
   }
 

@@ -31,7 +31,9 @@ function addProduct(name,price,unit,quantity,description){
 		url: "/products",
 		data: {"name":name,"price":price,"unit":unit,"quantity":quantity,"description":description},
 		dataType: "json",
-		success:alert("添加商品"+name+"成功")
+		success:function (item) {
+				alert("商品 "+name+" 添加成功!");
+		}
 	});
 }
 
@@ -46,21 +48,22 @@ function hasOwnProduct(name,items){
 }
 
 
-function updateProduct(item,price,unit,quantity,description,itemsData){
+function updateProduct(item,price,unit,quantity,description,items){
 	$.ajax({
 		type: "post",
 		url: "/products/update",
-		data: {"id":items[item].id,"price":price,"unit":unit,"quantity":quantity,"description":description},
+		data: {"id":items[item].id,"price":price,"name":items[item].name,"unit":unit,"quantity":quantity,"description":description},
 		dataType: "json",
-		success:
-			alert("商品 "+
-			items[item].name+"已存过\n"+
-			"原信息：\n"+
-			"单价： "+items[item].price+
-			"，单位："+items[item].unit+
-			"，数量："+items[item].quantity+
-			"，描述信息："+items[item].description+
-			"\n更新为:\n"+name+
-			"单价： "+price+"，单位："+unit+"，数量："+quantity+"，描述信息："+description)
+		success:function (data) {
+						alert("商品 "+
+									items[item].name+"已存过\n"+
+									"原信息：\n"+
+									"单价： "+items[item].price+
+									"，单位："+items[item].unit+
+									"，数量："+items[item].quantity+
+									"，描述信息："+items[item].description+
+									"\n更新为:\n"+name+
+									"单价： "+price+"，单位："+unit+"，数量："+quantity+"，描述信息："+description)
+			}
 	});
 }

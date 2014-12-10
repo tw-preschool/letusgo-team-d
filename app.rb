@@ -93,6 +93,11 @@ class POSApplication < Sinatra::Base
     end
 
     post '/products/update' do
+      if params[:quantity].to_i < 0
+        #puts params[:quantity]
+        #flash.now[:warning] = "失效"
+        #redirect "/admin"
+      else
         product = Product.find(params[:id])
         product.update_attributes(
             :name => params[:name],
@@ -102,12 +107,8 @@ class POSApplication < Sinatra::Base
             :description => params[:description],
             :is_promotional => params[:is_promotional]
         )
-
-        if product.save
-            [201, {:message => "products/#{product.id}"}.to_json]
-        else
-            halt 500, {:message => "create product failed"}.to_json
-        end
+        product.to_json
+      end
     end
 
     post '/products' do
@@ -127,6 +128,7 @@ class POSApplication < Sinatra::Base
     post '/products/delete' do
         product = Product.find(params[:id])
         product.delete
+        [201, {:message => "delect success"}.to_json]
     end
 
     post '/pages/payment' do
