@@ -17,6 +17,7 @@ describe 'Pos Application', :type => :feature do
 
   describe "Add items page", :js => true do
     it "should get new item in DB when add item in '/add'" do
+      page.set_rack_session username: "admin"
       visit '/admin'
 
       fill_in 'item-name', :with => 'peach'
@@ -31,7 +32,7 @@ describe 'Pos Application', :type => :feature do
       expect(added_item.name).to eq 'peach'
       expect(added_item.price).to eq 3 
       expect(added_item.unit).to eq '斤'
-      expect(added_item.unit).to eq '水蜜桃'
+      expect(added_item.description).to eq '水蜜桃'
     end
   end
 

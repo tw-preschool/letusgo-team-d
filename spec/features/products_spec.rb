@@ -17,7 +17,7 @@ describe 'Products Application' do
   end
 
   describe 'Create a Product' do
-  	let(:body) { {:name => "Mac Book Pro", :price => 13456.89, :unit => "台"} }
+  	let(:body) { {:name => "Mac Book Pro", :price => 13456.89, :unit => "台", :quantity => 0} }
 
   	it 'create a product'  do
   		post '/products', body, {'Content-Type' => 'application/json'}
