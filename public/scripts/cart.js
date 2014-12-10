@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     $(".min").each(function(){
         selectedInput = $(this).next();
-        if (parseInt(selectedInput.val()) == 1)
+        if (parseInt(selectedInput.val()) <= 0)
           $(this).attr('disabled', true);
     });
 
@@ -29,7 +29,7 @@ $(document).ready(function () {
         $(".add").click(function(){
             selectedInput = $(this).prev();
             selectedInput.val(parseInt(selectedInput.val()) + 1);
-            if (parseInt(selectedInput.val()) != 1){
+            if (parseInt(selectedInput.val()) > 0){
                 $(this).prev().prev().attr('disabled',false);
             }
             updateCart();
@@ -38,7 +38,7 @@ $(document).ready(function () {
         $(".min").click(function(){
             selectedInput = $(this).next();
             selectedInput.val(parseInt(selectedInput.val()) - 1);
-            if (parseInt(selectedInput.val()) == 1){
+            if (parseInt(selectedInput.val()) <= 0){
                 $(this).attr('disabled',true);
             }
             updateCart();

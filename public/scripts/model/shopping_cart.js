@@ -45,7 +45,7 @@ function ShoppingCart() {
             return;
         var cartItem = this.selectItem(item);
         if (cartItem !== null) {
-            if(cartItem.amount === (amount || 1)) {
+            if(cartItem.amount < (amount || 1)) {
                 itemList.splice(itemList.indexOf(cartItem),1);
             }
             else {
@@ -56,7 +56,7 @@ function ShoppingCart() {
     };
 
     this.updateItem = function (item, amount) {
-        if(amount == null || amount <= 0)
+        if(amount == null || amount < 0)
             return;
         var cartItem = this.selectItem(item);
         if (cartItem !== null) {

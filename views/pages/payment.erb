@@ -14,23 +14,25 @@
     </thead>
     <tbody>
       <% @shopping_cart.shopping_list.each do |item| %>
-        <tr>
-          <td>
-            <%= "#{item.name}" %>
-          </td>
-          <td>
-            <%= "#{item.price}" %>
-          </td>
-          <td>
-            <%= "#{item.unit}" %>
-          </td>
-          <td>
-            <%= "#{item.amount}" %>
-          </td>
-          <td>
-            <%= "#{format("%0.2f", item.kindred_price)} 元" %>
-          </td>
-        </tr>
+        <% if (item.amount > 0) %>
+          <tr>
+            <td>
+              <%= "#{item.name}" %>
+            </td>
+            <td>
+              <%= "#{item.price}" %>
+            </td>
+            <td>
+              <%= "#{item.unit}" %>
+            </td>
+            <td>
+              <%= "#{item.amount}" %>
+            </td>
+            <td>
+              <%= "#{format("%0.2f", item.kindred_price)} 元" %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
