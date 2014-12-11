@@ -5,7 +5,7 @@ require_relative '../spec_helper'
 describe 'Pos Application', :type => :feature do
 
   before :each do
-    Product.create(name: "Apple", price: 2.5, unit: "斤",description:"红富士")
+    Product.create(name: "Apple", price: 2.5, unit: "斤", quantity: 2, description:"红富士")
   end
 
   describe "Index page" do
@@ -16,7 +16,7 @@ describe 'Pos Application', :type => :feature do
   end
 
   describe "Add items page", :js => true do
-    it "should get new item in DB when add item in '/add'" do
+    it "should get new item in DB when add item in '/admin'" do
       page.set_rack_session username: "admin"
       visit '/admin'
 

@@ -31,8 +31,11 @@ function addProduct(name,price,unit,quantity,description){
 		url: "/products",
 		data: {"name":name,"price":price,"unit":unit,"quantity":quantity,"description":description},
 		dataType: "json",
-		success:function (item) {
-				alert("商品 "+name+" 添加成功!");
+		success: function (item) {
+			alert("商品 "+name+" 添加成功!");
+		},
+		error: function (response) {
+			alert(JSON.stringify(response));
 		}
 	});
 }
