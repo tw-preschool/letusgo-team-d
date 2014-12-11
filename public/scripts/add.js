@@ -22,6 +22,8 @@ $(document).ready(function () {
 		} else {
 			addProduct(name,price,unit,quantity,description);
 		}
+
+		return false;
 	});
 });
 
@@ -33,6 +35,7 @@ function addProduct(name,price,unit,quantity,description){
 		dataType: "json",
 		success: function (item) {
 			alert("商品 "+name+" 添加成功!");
+			window.location.reload();
 		},
 		error: function (response) {
 			alert(JSON.stringify(response));
@@ -58,15 +61,17 @@ function updateProduct(item,price,unit,quantity,description,items){
 		data: {"id":items[item].id,"price":price,"name":items[item].name,"unit":unit,"quantity":quantity,"description":description},
 		dataType: "json",
 		success:function (data) {
-						alert("商品 "+
-									items[item].name+"已存过\n"+
-									"原信息：\n"+
-									"单价： "+items[item].price+
-									"，单位："+items[item].unit+
-									"，数量："+items[item].quantity+
-									"，描述信息："+items[item].description+
-									"\n更新为:\n"+name+
-									"单价： "+price+"，单位："+unit+"，数量："+quantity+"，描述信息："+description)
-			}
+			alert("商品 "+
+				items[item].name+"已存过\n"+
+				"原信息：\n"+
+				"单价： "+items[item].price+
+				"，单位："+items[item].unit+
+				"，数量："+items[item].quantity+
+				"，描述信息："+items[item].description+
+				"\n更新为:\n"+name+
+				"单价： "+price+"，单位："+unit+"，数量："+quantity+"，描述信息："+description
+			);
+			window.location.reload();
+		}
 	});
 }
