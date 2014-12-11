@@ -9,6 +9,11 @@ $(document).ready(function () {
 	        }
 	 });
 
+	function isUnsignedInteger(num){
+		var reg = /^(0|([1-9]\d*))$/;
+		return reg.test(num);
+	}
+
 	$('#submit').click(function(){
 		var name = $('#item-name').val();
 		var price = $('#item-price').val();
@@ -16,14 +21,17 @@ $(document).ready(function () {
 		var quantity = $('#item-quantity').val() || 0;
 		var description = $('#item-description').val();
 
-		var item = hasOwnProduct(name,itemsData);
-		if (item >= 0) {
-			updateProduct(item,price,unit,quantity,description,itemsData);
-		} else {
-			addProduct(name,price,unit,quantity,description);
+		if(!isUnsignedInteger(quantity)){
+			alert("商品数量应为非负整数");
+			return;
+		}else{
+			var item = hasOwnProduct(name,itemsData);
+			if (item >= 0) {
+				updateProduct(item,price,unit,quantity,description,itemsData);
+			} else {
+				addProduct(name,price,unit,quantity,description);
+			}
 		}
-
-		return false;
 	});
 });
 

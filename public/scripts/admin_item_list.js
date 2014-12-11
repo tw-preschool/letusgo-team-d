@@ -88,26 +88,15 @@ $(document).ready(function () {
     }
   }
 
+  function isUnsignedInteger(num){
+    var reg = /^(0|([1-9]\d*))$/;
+    return reg.test(num);
+  }
+
   function confirmItem(){
     $(this).parent().prev().find("input").bootstrapSwitch('toggleReadonly');
     var isPromotional = $(this).parent().prev().find("input").bootstrapSwitch('state');
-
     var inputnode = $(this).parent().siblings().find("input");
-    for(var i = 0; i<inputnode.length-1; i++){
-      var inputtext = $(inputnode[i]).val();
-      var tdNode = $(inputnode[i]).parent();
-      if(i != inputnode.length-2){
-        tdNode.html(inputtext);
-      }else{
-        var pTag = $("<p></p>");
-        tdNode.find("input").replaceWith(pTag);
-        tdNode.find("p").html(inputtext);
-
-      }
-
-    }
-
-    recoveryEditButton($(this).parent());
 
     var index = -1;
     var name = $(inputnode[0]).val();
@@ -116,19 +105,29 @@ $(document).ready(function () {
     var quantity = $(inputnode[3]).val();
     var description = $(inputnode[4]).val();
 
-    if(quantity<0){
-
-      quantity = 0;
-      alert("商品数量应为非负数，默认为   "+quantity);
-    }
-
-    for (var i in itemData) {
-      if(name == itemData[i].name){
-        index = i;
-        break;
+    if(!isUnsignedInteger(quantity)){
+      alert("商品数量应为非负整数");
+    }else{
+      for(var i = 0; i<inputnode.length-1; i++){
+        var inputtext = $(inputnode[i]).val();
+        var tdNode = $(inputnode[i]).parent();
+        if(i != inputnode.length-2){
+          tdNode.html(inputtext);
+        }else{
+          var pTag = $("<p></p>");
+          tdNode.find("input").replaceWith(pTag);
+          tdNode.find("p").html(inputtext);
+        }
       }
+      recoveryEditButton($(this).parent());
+      for (var i in itemData) {
+        if(name == itemData[i].name){
+          index = i;
+          break;
+        }
+      }
+      updateProductAdmin(index,name,price,unit,quantity,description,isPromotional,itemData);
     }
-    updateProductAdmin(index,name,price,unit,quantity,description,isPromotional,itemData);
   }
 
   function updateProductAdmin(index,name,price,unit,quantity,description,isPromotional,itemData){
@@ -140,7 +139,6 @@ $(document).ready(function () {
       success:function (item) {
           alert("商品 "+item.name+" 信息已更新!");
       }
-
     });
   }
 
