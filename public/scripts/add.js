@@ -31,6 +31,7 @@ $(document).ready(function () {
 			} else {
 				addProduct(name,price,unit,quantity,description);
 			}
+			return false;
 		}
 	});
 });
