@@ -47,13 +47,8 @@
   background:#428bca;
   border-color:#357ebd;
 }
-.product-table tr{
-  height: 52px;
-  width: 100%;
-}
-.product-table p{
-  overflow: auto; 
-  width: 200px;
-  margin: 0px;
-}
 
+#product-table-list p{
+  width: 200px;
+
+}

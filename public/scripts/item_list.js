@@ -1,5 +1,9 @@
 $(document).ready(function () {
     loadItems();
+    $('#items-table p').readmore({
+      speed: 75,
+      maxHeight: 42
+    });
 });
 
 function loadItems() {

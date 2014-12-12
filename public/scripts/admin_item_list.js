@@ -21,14 +21,18 @@ $(document).ready(function () {
     $("[name='promotion-checkbox']").bootstrapSwitch('onText', '买二送一');
     $("[name='promotion-checkbox']").bootstrapSwitch('offText', '无');
     $("[name='promotion-checkbox']").bootstrapSwitch('onColor', 'info');
+    $('#product-table-list p').readmore({
+      speed: 75,
+      maxHeight: 42,
+    });
   }
 
   function editItem(){
     $(this).parent().prev().find("input").bootstrapSwitch('toggleReadonly');
-
+    $('#product-table-list a').remove();
     var editRow = $(this).parent().siblings();
     for(var i=0;i<editRow.length-1;i++){
-      tdclick($(editRow[i]));
+      editClick($(editRow[i]));
     }
     var btnParent = $(this).parent();
     btnParent.append($('<button type="button" class="btn btn-success item-confirm">确定</button>'));
@@ -99,7 +103,10 @@ $(document).ready(function () {
         }else{
           var pTag = $("<p></p>");
           tdNode.find("input").replaceWith(pTag);
-          tdNode.find("p").html(inputtext);
+          tdNode.find("p").html(inputtext).readmore({
+            speed: 75,
+            maxHeight: 42
+          });
         }
       }
       recoveryEditButton($(this).parent());
@@ -127,11 +134,20 @@ $(document).ready(function () {
 
   function cancelItem(editRow){
     $(this).parent().prev().find("input").bootstrapSwitch('toggleReadonly');
-
     var inputnode = $(this).parent().siblings().find("input");
     for(var i = 0; i<inputnode.length-1; i++){
       var tdNode = $(inputnode[i]).parent();
-      tdNode.html(tdNode[0].getAttribute("value"));
+      var inputtext = tdNode[0].getAttribute("value");
+      if(i != inputnode.length-2){
+        tdNode.html(inputtext);
+      }else{
+        var pTag = $("<p></p>");
+        tdNode.find("input").replaceWith(pTag);
+        tdNode.find("p").html(inputtext).readmore({
+          speed: 75,
+          maxHeight: 42
+        });
+      }
     }
 
     recoveryEditButton($(this).parent());
@@ -147,7 +163,7 @@ $(document).ready(function () {
     btnParent.find(".item-delete").on("click", deleteItem);
   }
 
-  function tdclick(editRow){
+  function editClick(editRow){
     var td = editRow;
     var text = td.text();
     td.attr("value",text);
