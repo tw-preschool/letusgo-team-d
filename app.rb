@@ -48,6 +48,18 @@ class POSApplication < Sinatra::Base
         erb :login
     end
 
+    # We should use POST way to make user logout if there's more demands.
+    get '/admin_logout' do
+      if session[:username] == "admin"
+        flash[:success] = "Admin登出成功！"
+        session[:username] = nil
+        redirect '/'
+      else
+        flash[:warning] = "Session失效，请先登录再进行操作！"
+        redirect '/login'
+      end
+    end
+
     get '/admin' do
       if session[:username] == "admin"
         content_type:html
