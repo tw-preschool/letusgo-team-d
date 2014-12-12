@@ -15,6 +15,18 @@
         </tr>
       </thead>
       <tbody id="items-table">
+        <% Product.all.each do |item| %>
+          <%if item.quantity > 0%>
+          <tr>
+            <td><%=item.name%></td>
+            <td><%=item.price%></td>
+            <td><%=item.unit%></td>
+            <td><%=item.quantity%></td>
+            <td><p><%=item.description%></p></td>
+            <td><button type="button" class="btn btn-primary addCartButton">加入购物车</button></td>
+          </tr>
+          <%end%>
+        <%end%>
       </tbody>
     </table>
   </div>
