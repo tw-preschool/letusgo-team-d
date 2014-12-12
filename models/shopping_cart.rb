@@ -11,15 +11,19 @@ class ShoppingCart
         @sum_discount = 0.0
     end
 
-    def init_with_Data cart_data
+    def init_with_data cart_data
         cart_data.each do |item|
+            raise "initial data error" unless item.has_key?("itemType") && item.has_key?("amount") && item["itemType"].has_key?("name")
+            raise "product count error" unless item["amount"].to_i >= 0
+            next if item["amount"].to_i == 0
             db_item = Product.where(name: item["itemType"]["name"]).first
-            puts item.to_json
             if db_item
-                db_item.amount = item["amount"]
+                db_item.amount = item["amount"].to_i
                 db_item.kindred_price = 0.0
                 db_item.discount_amount = 0;
                 @shopping_list.push db_item
+            else
+                raise "product id error"
             end
         end
     end
@@ -29,11 +33,13 @@ class ShoppingCart
         select_items.first
     end
 
-    def add_item item_name, amount
+    def add_item_count item_name, amount
+        raise "product count error" if amount <= 0
+
         if amount > 0 && !item_name.empty?
             db_item = Product.where(name: item_name).first
             if db_item
-                new_item = @shopping_list.select! {|item| item.name === item_name}
+                new_item = @shopping_list.select {|item| item.name === item_name}.first
                 if new_item
                     new_item.amount += amount
                 else

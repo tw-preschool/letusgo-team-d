@@ -32,9 +32,11 @@ end
 if ENV["RACK_ENV"] == 'test'
 	require 'rspec/core/rake_task'
 
-	RSpec::Core::RakeTask.new :specs do |task|
-		task.pattern = Dir['spec/**/*_spec.rb']
-	end
+    RSpec::Core::RakeTask.new :specs do |task|
+        task.pattern = Dir['spec/**/*_spec.rb']
+        task.rspec_opts = ['-fd']
+        task.verbose = false
+    end
 
 	task :default => ['specs']
 end
