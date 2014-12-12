@@ -67,6 +67,23 @@
         </tr>
       </thead>
       <tbody id="product-table-list">
+        <% Product.all.each do |item| %>
+          <tr>
+            <td><%=item.name%></td>
+            <td><%=item.price%></td>
+            <td><%=item.unit%></td>
+            <td><%=item.quantity%></td>
+            <td><p><%=item.description%></p></td>
+            <%if item.is_promotional == true%>
+              <td><input type="checkbox" name="promotion-checkbox"  checked></td>
+            <%else%>
+              <td><input type="checkbox" name="promotion-checkbox"></td>
+            <%end%>
+            <td><button type="button" class="btn btn-primary item-edit">修改</button>
+            <button type="button" class="btn btn-primary item-delete">删除</button></td>
+          </tr>
+      <%end%>
+
       </tbody>
     </table>
   </div>

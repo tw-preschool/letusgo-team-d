@@ -16,24 +16,7 @@ $(document).ready(function () {
         }
     });
 
-
   function displayItems (items) {
-    _(items).each(function (item) {
-        var checked = (item.is_promotional) ? 'checked' : '';
-        var description = (item.description) ? item.description : '';
-        var quantity = (item.quantity>0) ? item.quantity : 0;
-        var listItem = $('<tr>\
-                    <td>' + item.name + '</td>\
-                    <td>' + item.price + '</td>\
-                    <td>' + item.unit + '</td>\
-                    <td>' + quantity + '</td>\
-                    <td><p>' + description + '</p></td>\
-                    <td><input type="checkbox" name="promotion-checkbox" ' + checked + '></td>\
-                    <td><button type="button" class="btn btn-primary item-edit">修改</button>\
-                    <button type="button" class="btn btn-primary item-delete">删除</button></td>\
-                    </tr>');
-        $('#product-table-list').append(listItem);
-    });
     $("[name='promotion-checkbox']").bootstrapSwitch('toggleReadonly');
     $("[name='promotion-checkbox']").bootstrapSwitch('onText', '买二送一');
     $("[name='promotion-checkbox']").bootstrapSwitch('offText', '无');
