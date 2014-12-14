@@ -12,6 +12,8 @@ require 'json'
 
 require './models/product'
 require './models/shopping_cart'
+require './models/order'
+require './models/cart_item'
 
 class POSApplication < Sinatra::Base
     dbconfig = YAML.load(File.open("config/database.yml").read)
