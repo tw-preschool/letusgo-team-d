@@ -106,6 +106,24 @@ class POSApplication < Sinatra::Base
         end
     end
 
+    post '/pay' do
+        begin
+            cart_data = JSON.parse params[:cart_data]
+            @shopping_cart = ShoppingCart.new()
+            @shopping_cart.init_with_data cart_data
+            @shopping_cart.update_price
+            order = Order.create
+            order.init_by @shopping_cart
+        rescue
+            flash[:error] = "付款失败，请稍后再试！"
+            redirect '/pages/cart'
+        end
+
+        flash[:success] = "付款成功，欢迎继续选购！"
+        content_type :html
+        erb :'/pages/pay_success'
+    end
+
     post '/products/update' do
       if params[:quantity].to_i < 0
         #puts params[:quantity]
