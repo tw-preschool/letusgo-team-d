@@ -143,6 +143,7 @@ class POSApplication < Sinatra::Base
             @shopping_cart = ShoppingCart.new()
             @shopping_cart.init_with_data cart_data
             @shopping_cart.update_price
+            raise if @shopping_cart.shopping_list == []
             order = Order.create
             order.init_by @shopping_cart
         rescue

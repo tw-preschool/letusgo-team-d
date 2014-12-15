@@ -8,13 +8,6 @@ describe 'Pos Application', :type => :feature do
     Product.create(name: "Apple", price: 2.5, unit: "斤", quantity: 2, description:"红富士")
   end
 
-  describe "Index page" do
-    it "should display correct content" do
-      visit '/'
-      expect(page).to have_content("Welcome to Let's Go")
-    end
-  end
-
   describe "Add items page", :js => true do
     it "should get new item in DB when add item in '/admin'" do
       page.set_rack_session username: "admin"
@@ -36,15 +29,28 @@ describe 'Pos Application', :type => :feature do
     end
   end
 
-  describe "Item list page", :js => true do
+  describe "product management page", :js => true do
+    before :each do
+      page.set_rack_session username: "admin"
+    end
+
     it "should show item list when enter items.html" do
-      visit '/views/items.html'
+      visit '/admin'
 
       expect(page).to have_content("名称")
       expect(page).to have_content("Apple")
       expect(page).to have_content("2.5")
       expect(page).to have_content("斤")
       expect(page).to have_content("红富士")
+    end
+
+    it "should delete item after click delete_button" do
+      visit '/admin'
+      expect(page).to have_content("红富士")
+      accept_alert do
+        page.find(:xpath, '//button[@class="btn btn-primary item-delete"]').click
+      end
+      expect(page).not_to have_content("红富士")
     end
   end
 
