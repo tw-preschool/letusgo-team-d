@@ -78,7 +78,7 @@ class POSApplication < Sinatra::Base
 
     get '/admin/orders' do
       if session[:username] == "admin"
-        @orders = Order.all
+        @orders = Order.order("time DESC")
         content_type :html
         erb :'pages/admin_order_list'
       else
