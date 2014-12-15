@@ -11,6 +11,22 @@ class ShoppingCart
         @sum_discount = 0.0
     end
 
+    def init_with_order order
+        begin
+            order.cart_items.each do |cart_item|
+                next if cart_item.amount == 0
+                db_item = Product.find(cart_item.product_id)
+                db_item.amount = cart_item.amount
+                db_item.kindred_price = 0.0
+                db_item.discount_amount = 0;
+                @shopping_list.push db_item
+            end
+            update_price
+        rescue
+            raise "Something wrong occured while init shopping_cart with order"
+        end
+    end
+
     def init_with_data cart_data
         cart_data.each do |item|
             raise "initial data error" unless item.has_key?("itemType") && item.has_key?("amount") && item["itemType"].has_key?("name")

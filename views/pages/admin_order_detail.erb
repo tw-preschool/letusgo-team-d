@@ -1,0 +1,100 @@
+<%= erb :'layout/_nav_admin' %>
+
+<div class="container">
+<div class="pay-table table-responsive">
+  <table class="table table-bordered table-items table-hover">
+    <caption id="pay-table-title">订单详细信息</caption>
+    <thead>
+      <tr>
+        <th>订单编号</th>
+        <th>订单时间</th>
+        <th>订单金额</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th><%= "#{@order.number}" %></th>
+        <th><%= "#{@order.time.strftime('%Y-%m-%d %H:%M:%S')}" %></th>
+        <th><%= "#{format("%0.2f", @order.sum)} 元" %></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-bordered table-items table-hover">
+    <caption id="pay-table-title">购物清单</caption>
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>单价(元)</th>
+        <th>单位</th>
+        <th>数量</th>
+        <th>小计</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @shopping_cart.shopping_list.each do |item| %>
+        <% if (item.amount > 0) %>
+          <tr>
+            <td>
+              <%= "#{item.name}" %>
+            </td>
+            <td>
+              <%= "#{item.price}" %>
+            </td>
+            <td>
+              <%= "#{item.unit}" %>
+            </td>
+            <td>
+              <%= "#{item.amount}" %>
+            </td>
+            <td>
+              <%= "#{format("%0.2f", item.kindred_price)} 元" %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <% if @shopping_cart.sum_discount > 0 %>
+    <table class="table table-bordered table-items table-hover">
+      <caption id="pay-table-title">赠送商品</caption>
+      <thead>
+        <tr>
+          <th>分类</th>
+          <th>名称</th>
+          <th>数量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shopping_cart.discount_list.each do |discount_item| %>
+          <tr>
+            <td>
+              买二送一
+            </td>
+            <td>
+              <%= "#{discount_item.name}" %>
+            </td>
+            <td>
+              <%= "#{discount_item.discount_amount}" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <div class="row">
+    <div class="col-sm-10"></div>
+    <div class="col-sm-2">
+      <p id="summary"><%= "总计：#{format("%0.2f", @shopping_cart.sum_price)} 元" %></p>
+      <p id="save"><%= "节约：#{format("%0.2f", @shopping_cart.sum_discount)} 元" %></p>
+    </div>
+  </div>
+</div>
+
+<div class="row col-sm-12 text-center">
+  <a class="btn btn-info btn-back" href="/admin/orders">返回上一页</a>
+</div>
+
+</div>

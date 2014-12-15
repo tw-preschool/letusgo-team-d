@@ -46,8 +46,12 @@ class POSApplication < Sinatra::Base
     end
 
     get '/login' do
-        content_type:html
-        erb :login
+        if session[:username] == "admin"
+            redirect '/admin/orders'
+        else
+            content_type :html
+            erb :login
+        end
     end
 
     # We should use POST way to make user logout if there's more demands.
@@ -74,7 +78,8 @@ class POSApplication < Sinatra::Base
 
     get '/admin/orders' do
       if session[:username] == "admin"
-        content_type:html
+        @orders = Order.all
+        content_type :html
         erb :'pages/admin_order_list'
       else
         flash[:warning] = "Session失效，请先登录再进行操作！"
@@ -111,6 +116,22 @@ class POSApplication < Sinatra::Base
         begin
             product = Product.find(params[:id])
             product.to_json
+        rescue  ActiveRecord::RecordNotFound => e
+            [404, {:message => e.message}.to_json]
+        end
+    end
+
+    get '/orders/:id' do
+        if session[:username] != "admin"
+            flash[:warning] = "Session失效，请先登录再进行操作！"
+            redirect '/login'
+        end
+        begin
+            @order = Order.find params[:id]
+            @shopping_cart = ShoppingCart.new
+            @shopping_cart.init_with_order @order
+            content_type :html
+            erb :'/pages/admin_order_detail'
         rescue  ActiveRecord::RecordNotFound => e
             [404, {:message => e.message}.to_json]
         end
