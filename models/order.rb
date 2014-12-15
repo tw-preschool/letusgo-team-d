@@ -5,7 +5,8 @@ class Order < ActiveRecord::Base
 
     def init_by shopping_cart
         shopping_cart.shopping_list.each do |item|
-            self.cart_items.create(product_id: item.id, amount: item.amount)
+            cart_item = self.cart_items.create(product_id: item.id, amount: item.amount)
+            cart_item.after_save
         end
         self.sum = shopping_cart.sum_price
         self.discount = shopping_cart.sum_discount
