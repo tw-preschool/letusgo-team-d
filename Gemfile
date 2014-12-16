@@ -7,6 +7,7 @@ gem 'rack-contrib'
 gem 'sinatra-contrib'
 gem 'rack-flash3'
 gem 'thin'
+gem 'sinatra-authorize'
 
 group :development, :test do
     gem 'shotgun'

@@ -5,6 +5,7 @@ require 'sinatra/base'
 require 'rack-flash'
 require 'sinatra/contrib'
 require 'sinatra/reloader'
+require 'sinatra/authorize'
 require 'rack/contrib'
 require 'active_record'
 
@@ -101,6 +102,11 @@ class POSApplication < Sinatra::Base
     get '/add' do
         content_type :html
         erb :'pages/add'
+    end
+    
+    get '/user/register' do
+        content_type :html
+        erb :'pages/register'
     end
 
     get '/products' do
