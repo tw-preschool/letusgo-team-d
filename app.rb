@@ -14,6 +14,7 @@ require 'json'
 require './models/product'
 require './models/shopping_cart'
 require './models/order'
+require './models/user'
 require './models/cart_item'
 
 class POSApplication < Sinatra::Base
@@ -103,7 +104,7 @@ class POSApplication < Sinatra::Base
         content_type :html
         erb :'pages/add'
     end
-    
+
     get '/user/register' do
         content_type :html
         erb :'pages/register'
@@ -192,6 +193,19 @@ class POSApplication < Sinatra::Base
             [201, {:message => "products/#{product.id}"}.to_json]
         else
             halt 500, {:message => "create product failed"}.to_json
+        end
+    end
+    post '/user/register' do
+        user = User.create(:login_name => params[:login_name],
+                            :password => params[:password],
+                            :name => params[:name],
+                            :address => params[:address],
+                            :telephone => params[:telephone])
+
+        if user.save
+            [201, {:message => "users/#{user.login_name}"}.to_json]
+        else
+            halt 500, {:message => "register user failed"}.to_json
         end
     end
 
