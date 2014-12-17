@@ -196,14 +196,14 @@ class POSApplication < Sinatra::Base
         end
     end
     post '/user/register' do
-        user = User.create(:login_name => params[:login_name],
+        user = User.create(:username => params[:username],
                             :password => params[:password],
                             :name => params[:name],
                             :address => params[:address],
                             :telephone => params[:telephone])
 
         if user.save
-            [201, {:message => "users/#{user.login_name}"}.to_json]
+            [201, {:message => "users/#{user.username}"}.to_json]
         else
             halt 500, {:message => "register user failed"}.to_json
         end

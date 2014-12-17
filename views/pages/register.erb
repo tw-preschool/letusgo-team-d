@@ -1,4 +1,4 @@
-<%= erb :'layout/_nav_admin' %>
+<%= erb :'layout/_nav_user' %>
 <%= erb :'layout/_flash_page' %>
 
 <div class="container">
@@ -6,9 +6,9 @@
     <div class="register-title"><p>新用户注册<p></div>
     <form id="registerForm"action="/user/register" class="form-horizontal" role="form" method="post">
       <div class="form-group form-group-lg">
-          <label class="col-sm-2 control-label" for="login_name">用户名</label>
+          <label class="col-sm-2 control-label" for="userame">用户名</label>
           <div class="col-sm-10">
-            <input class="form-control" type="text" name="login_name" placeholder="用户名">
+            <input class="form-control" type="text" name="username" placeholder="用户名">
           </div>
       </div>
       <div class="form-group form-group-lg">

@@ -8,6 +8,7 @@ gem 'sinatra-contrib'
 gem 'rack-flash3'
 gem 'thin'
 gem 'sinatra-authorize'
+gem 'bcrypt-ruby'
 
 group :development, :test do
     gem 'shotgun'

@@ -18,7 +18,7 @@ items.each do |item|
   puts Product.create(item).to_json
 end
 
-users.push :login_name => '1025922576@qq.com', :password => '891126', :name => 'zhaomengru', :address =>'xian', :telephone => '13474537486'
+users.push :username => '1025922576@qq.com', :password => '891126', :name => 'zhaomengru', :address =>'xian', :telephone => '13474537486'
 
 users.each do |user|
   puts User.create(user).to_json
