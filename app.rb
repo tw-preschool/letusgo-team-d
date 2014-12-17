@@ -89,8 +89,8 @@ class POSApplication < Sinatra::Base
       end
     end
 
-    post '/login' do
-      if params['username'] == "admin" and params["pwd"] == "admin"
+    post '/adminLogin' do
+      if params['username'] == "admin" and params["password"] == "admin"
         session[:username] = "admin"
         flash[:success] = "登录成功！"
         redirect "/admin/orders"
@@ -98,6 +98,19 @@ class POSApplication < Sinatra::Base
         flash[:error] = "用户名/密码错误，请重试！"
         redirect '/login'
       end
+    end
+
+    post '/userLogin' do
+
+        @user = User.authenticate(params[:username], params[:password])
+        if @user
+          session[:username] = @user.username
+          flash[:success] = "登录成功！"
+          redirect '/'
+        else
+          flash[:error] = "登陆失败，请重试！"
+          redirect '/login'
+        end
     end
 
     get '/add' do
@@ -195,6 +208,9 @@ class POSApplication < Sinatra::Base
             halt 500, {:message => "create product failed"}.to_json
         end
     end
+
+
+
     post '/user/register' do
         user = User.create(:username => params[:username],
                             :password => params[:password],
@@ -203,9 +219,12 @@ class POSApplication < Sinatra::Base
                             :telephone => params[:telephone])
 
         if user.save
-            [201, {:message => "users/#{user.username}"}.to_json]
+            flash[:success]="注册成功，请登录"
+            redirect '/login'
+
         else
-            halt 500, {:message => "register user failed"}.to_json
+            flash[:error]="注册失败，请重新注册"
+            redirect '/user/register'
         end
     end
 
