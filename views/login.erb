@@ -19,14 +19,22 @@
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button class="btn btn-primary" onclick="loginForm.action='/adminLogin';loginForm.submit();">管理员登陆</button>
-          <button class="btn btn-primary" onclick="loginForm.action='/userLogin';loginForm.submit();">用户登陆</button>
+          <select id="select">
+            <option value="/userLogin" selectted='selected'>普通用户</option>
+            <option value="/adminLogin">管理员</option>
+          </select>
+          <button class="btn btn-primary" onclick="loginForm.action=getSelectedValue('select');loginForm.submit();">登陆</button>
         </div>
     </div>
     </form>
   </div>
 </div>
-
+<script charset="utf-8">
+  function getSelectedValue(name){
+    var obj = document.getElementById(name);
+    return obj.value;
+  }
+</script>
 <% content_for :script_chunk do %>
   <link rel="stylesheet" href="styles/login.css">
   <script type="text/javascript" src="/scripts/model/item.js"></script>
