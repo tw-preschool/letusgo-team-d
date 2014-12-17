@@ -1,9 +1,5 @@
 $(document).ready(function () {
     loadItems();
-    $('#items-table p').readmore({
-      speed: 75,
-      maxHeight: 42
-    });
 });
 
 function loadItems() {
@@ -16,6 +12,7 @@ function loadItems() {
         },
 
         success: function (items) {
+            displayDescriptions(items);
             shoppingCart.setAllItemList(items);
             $(".addCartButton").click(function() {
                 itemName = $(this).parents("tr").find("td:first").html();
@@ -23,5 +20,14 @@ function loadItems() {
                 updateCountText();
             });
         }
+    });
+}
+
+function displayDescriptions (items) {
+    _(items).each(function (item) {
+        $('#items-table p').readmore({
+            speed: 75,
+            maxHeight: 20
+        });    
     });
 }
