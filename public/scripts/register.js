@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('#register').remove();
     $('#registerForm').bootstrapValidator({
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -6,7 +7,7 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-          login_name: {
+          username: {
               validators: {
                   emailAddress: {
                       message: '请输入正确的email'
