@@ -9,6 +9,9 @@ $(document).ready(function() {
         fields: {
           username: {
               validators: {
+                  notEmpty:{
+                      message: 'email不能为空'
+                  },
                   emailAddress: {
                       message: '请输入正确的email'
                   }
@@ -16,9 +19,31 @@ $(document).ready(function() {
           },
           password: {
             validators: {
+                notEmpty:{
+                    message: '密码不能为空'
+                },
                 stringLength: {
                     min:6,
                     message: '长度不得小于6个字符'
+                },
+                identical: {
+                  field: 'confirmPassword',
+                  message: '两次密码应一致'
+                }
+            }
+          },
+          confirmPassword: {
+            validators: {
+                notEmpty:{
+                    message: '密码不能为空'
+                },
+                stringLength: {
+                    min:6,
+                    message: '长度不得小于6个字符'
+                },
+                identical: {
+                  field: 'password',
+                  message: '两次密码应一致'
                 }
             }
           },
