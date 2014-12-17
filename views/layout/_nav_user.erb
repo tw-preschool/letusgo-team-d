@@ -16,12 +16,27 @@
       <li>
         <a href="/views/items.html">商品列表</a>
       </li>
-      <li class="pull-right">
-        <a href="/login">登录</a>
-      </li>
-      <li class="pull-right">
-        <a href="/user/register" id="register">注册</a>
-      </li>
+      <li class="admin">
+-        <a href="/login">管理员入口</a>
+-     </li>
+      <% if session[:username] %>
+        <li class="dropdown pull-right">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-user"></span>  <%= session[:username]%>
+          </a>
+          <ul class="dropdown-menu">
+             <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+             <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Exit</a></li>
+          </ul>
+        </li>
+      <% else %>
+        <li class="pull-right">
+          <a href="/login">登录</a>
+        </li>
+        <li class="pull-right">
+          <a href="/user/register" id="register">注册</a>
+        </li>
+      <% end %>
       <li class="pull-right">
         <a href="/views/cart.html">
           <span class="glyphicon glyphicon-shopping-cart"></span>购物车 (<span id="count"></span>)
