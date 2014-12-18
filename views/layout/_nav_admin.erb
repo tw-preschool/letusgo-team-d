@@ -20,7 +20,7 @@
         <a href="/admin">商品管理</a>
       </li>
       <li class="pull-right">
-        <% if session[:username] == "admin" %>
+        <% if session[:admin_name] == "admin" %>
           <li class="dropdown pull-right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <span class="glyphicon glyphicon-user"></span> Admin

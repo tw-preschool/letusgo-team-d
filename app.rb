@@ -48,7 +48,7 @@ class POSApplication < Sinatra::Base
     end
 
     get '/login' do
-        if session[:username] == "admin"
+        if session[:admin_name] == "admin"
             redirect '/admin/orders'
         else
             content_type :html
@@ -58,10 +58,10 @@ class POSApplication < Sinatra::Base
 
     # We should use POST way to make user logout if there's more demands.
     get '/logout' do
-      if session[:username]
-        flash[:success] = "退出成功！"
+      if session[:username] or session[:admin_name]
         session.inspect
         session.clear
+        flash[:success] = "退出成功！"
         redirect '/login'
       else
         flash[:warning] = "请先登录再进行操作！"
@@ -70,7 +70,7 @@ class POSApplication < Sinatra::Base
     end
 
     get '/admin' do
-      if session[:username] == "admin"
+      if session[:admin_name] == "admin"
         content_type:html
         erb :'pages/admin'
       else
@@ -80,7 +80,7 @@ class POSApplication < Sinatra::Base
     end
 
     get '/admin/orders' do
-      if session[:username] == "admin"
+      if session[:admin_name] == "admin"
         @orders = Order.order("time DESC")
         content_type :html
         erb :'pages/admin_order_list'
@@ -92,11 +92,11 @@ class POSApplication < Sinatra::Base
 
     post '/adminLogin' do
       if params['username'] == "admin" and params["password"] == "admin"
-        session[:username] = "admin"
+        session[:admin_name] = "admin"
         flash[:success] = "登录成功！"
         redirect "/admin/orders"
       else
-        flash[:error] = "用户名/密码错误，请重试！"
+        flash[:error] = "管理员用户名/密码错误，请重试！"
         redirect '/login'
       end
     end
@@ -143,7 +143,7 @@ class POSApplication < Sinatra::Base
     end
 
     get '/orders/:id' do
-        if session[:username] != "admin"
+        if session[:admin_name] != "admin"
             flash[:warning] = "请先登录再进行操作！"
             redirect '/login'
         end
