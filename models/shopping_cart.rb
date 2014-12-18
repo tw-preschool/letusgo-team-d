@@ -73,7 +73,7 @@ class ShoppingCart
             if item.is_promotional
                 discount_amount = (item.amount / 3).floor
                 item.kindred_price = item.price * (item.amount - discount_amount)
-                if discount_amount
+                if discount_amount > 0
                     item.discount_amount = discount_amount
                     @discount_list.push item
                     @sum_discount += item.price * item.discount_amount
