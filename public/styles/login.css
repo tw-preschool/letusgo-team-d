@@ -12,3 +12,8 @@
 .notice{
   font-color:red;
 }
+#select{
+  min-height:40px;
+  background-color:#F0F0F0;
+
+}

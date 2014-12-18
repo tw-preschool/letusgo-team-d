@@ -93,7 +93,12 @@ class POSApplication < Sinatra::Base
     post '/adminLogin' do
       if params['username'] == "admin" and params["password"] == "admin"
         session[:admin_name] = "admin"
-        flash[:success] = "登录成功！"
+        if session[:username]
+          session[:username] = nil
+          flash[:success] = "普通用户身份已退出，以管理员身份登录成功！"
+        else
+          flash[:success] = "登录成功！"
+        end
         redirect "/admin/orders"
       else
         flash[:error] = "管理员用户名/密码错误，请重试！"
@@ -109,7 +114,7 @@ class POSApplication < Sinatra::Base
           flash[:success] = "登录成功！"
           redirect '/'
         else
-          flash[:error] = "登陆失败，请重试！"
+          flash[:error] = "用户名或密码错误，请确认后重试"
           redirect '/login'
         end
     end
@@ -159,6 +164,10 @@ class POSApplication < Sinatra::Base
     end
 
     post '/pay' do
+        if session[:username] == nil
+            flash[:warning] = "请登录后再进行购物！"
+            redirect '/login'
+        end
         begin
             cart_data = JSON.parse params[:cart_data]
             @shopping_cart = ShoppingCart.new()
