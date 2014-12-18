@@ -164,10 +164,10 @@ class POSApplication < Sinatra::Base
     end
 
     post '/pay' do
-        if session[:username] == nil
-            flash[:warning] = "请登录后再进行购物！"
-            redirect '/login'
-        end
+        # if session[:username] == nil
+        #     flash[:warning] = "请登录后再进行购物！"
+        #     redirect '/login'
+        # end
         begin
             cart_data = JSON.parse params[:cart_data]
             @shopping_cart = ShoppingCart.new()

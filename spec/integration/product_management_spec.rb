@@ -10,7 +10,7 @@ describe 'Pos Application', :type => :feature do
 
   describe "Add items page", :js => true do
     it "should get new item in DB when add item in '/admin'",focus: true do
-      page.set_rack_session username: "admin"
+      page.set_rack_session admin_name: "admin"
       visit '/admin'
 
       fill_in 'item-name', :with => 'peach'
@@ -31,7 +31,7 @@ describe 'Pos Application', :type => :feature do
 
   describe "product management page", :js => true do
     before :each do
-      page.set_rack_session username: "admin"
+      page.set_rack_session admin_name: "admin"
     end
 
     it "should show item list when enter items.html" do
