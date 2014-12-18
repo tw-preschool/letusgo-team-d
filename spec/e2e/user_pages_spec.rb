@@ -3,7 +3,7 @@
 require_relative '../spec_helper'
 
 
-describe 'User Pages', :type => :feature do
+describe 'User Pages', :type => :feature, :js => true do
 
   before :each do
     Product.create(name: "Apple", price: 2.5, unit: "斤", quantity: 2, description:"红富士")
@@ -14,10 +14,11 @@ describe 'User Pages', :type => :feature do
     it "should display correct content at index page" do
       visit '/'
       expect(page).to have_content("Welcome to Let's Go")
+      expect(page).to have_selector(:xpath, '//span[@id="count"][contains(.,"0")]')
     end
   end
 
-  describe "Item list page", :js => true do
+  describe "Item list page" do
     it "should show item list when enter items.html" do
       visit '/pages/items'
 
@@ -29,7 +30,7 @@ describe 'User Pages', :type => :feature do
     end
   end
 
-  describe "Shopping cart page", :js => true do
+  describe "Shopping cart page" do
     it "should be empty when just entered website" do
       visit '/pages/cart'
       
