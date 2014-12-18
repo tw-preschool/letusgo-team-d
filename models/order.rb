@@ -14,4 +14,11 @@ class Order < ActiveRecord::Base
         self.number = "#{DateTime.now.to_i}#{self.id}"
         self.save
     end
+
+    def destory
+        self.cart_items.each do |cart_item|
+            cart_item.destory
+        end
+        self.delete
+    end
 end
