@@ -8,13 +8,10 @@
   font-style:large;
 }
 .index-image {
-  background-color: #ffffdd;
-  background-image: url("imgs/index.png");
-  backgound-position: top left;
-  background-repeat: no-repeat;
+  background: #ffffdd url("imgs/index.png") no-repeat;
+  width: 70%;
+  background-size: 100% 100%;
   margin: 0 auto 0 auto;
-  width:803px;
-  height: 547px;
   border: 2px solid #ffcc33;
   border-radius: 20px;
 }
@@ -33,6 +30,7 @@
   text-transform: center;
   line-height: 200%;
   font-size: 15px;
+  font-style: normal;
 }
 .index-image btn{
   margin: 0 auto 0 auto;
