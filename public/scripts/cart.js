@@ -44,6 +44,16 @@ $(document).ready(function () {
             updateCart();
         });
 
+        $("#item-num").on("mouseleave", function(){
+            selectedInput = $(this);
+            if (selectedInput.val() <= 0){
+                //$(this).attr('disabled',true);
+                selectedInput.val(0);
+            }
+            updateCart();
+
+        });
+
         $("#pay").click(function(){
             var postForm = document.createElement("form");
             postForm.action = '/pages/payment';
