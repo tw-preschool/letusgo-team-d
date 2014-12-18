@@ -3,7 +3,7 @@
 <div class="container">
 <div class="pay-table table-responsive">
   <table class="table table-bordered table-items table-hover">
-    <caption id="pay-table-title">订单详细信息</caption>
+    <caption class="default-table-title">订单详细信息</caption>
     <thead>
       <tr>
         <th>订单编号</th>
@@ -21,7 +21,7 @@
   </table>
 
   <table class="table table-bordered table-items table-hover">
-    <caption id="pay-table-title">购物清单</caption>
+    <caption class="default-table-title">购物清单</caption>
     <thead>
       <tr>
         <th>名称</th>
@@ -58,7 +58,7 @@
   
   <% if @shopping_cart.sum_discount > 0 %>
     <table class="table table-bordered table-items table-hover">
-      <caption id="pay-table-title">赠送商品</caption>
+      <caption class="default-table-title">赠送商品</caption>
       <thead>
         <tr>
           <th>分类</th>

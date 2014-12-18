@@ -5,12 +5,15 @@ class CartItem < ActiveRecord::Base
     has_and_belongs_to_many :orders
 
     def after_save
-        self.product.quantity -= self.amount
-        self.product.save
+        self.product.reduce_quantity self.amount
     end
 
     def before_destory
-        self.product.quantity += self.amount
-        self.product.save
+        self.product.increase_quantity self.amount
+    end
+
+    def destory
+        before_destory
+        self.delete
     end
 end

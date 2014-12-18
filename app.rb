@@ -164,18 +164,22 @@ class POSApplication < Sinatra::Base
     end
 
     post '/pay' do
-        if session[:username] == nil
-            flash[:warning] = "请登录后再进行购物！"
-            redirect '/login'
-        end
+        # if session[:username] == nil
+        #     flash[:warning] = "请登录后再进行购物！"
+        #     redirect '/login'
+        # end
+        order = Order.create
         begin
             cart_data = JSON.parse params[:cart_data]
             @shopping_cart = ShoppingCart.new()
             @shopping_cart.init_with_data cart_data
             @shopping_cart.update_price
             raise if @shopping_cart.shopping_list == []
-            order = Order.create
             order.init_by @shopping_cart
+        rescue RangeError => e
+            order.destory
+            flash[:error] = "#{e.message}"
+            redirect '/pages/cart'
         rescue
             flash[:error] = "付款失败，请稍后再试！"
             redirect '/pages/cart'

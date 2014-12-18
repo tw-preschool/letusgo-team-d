@@ -1,0 +1,41 @@
+@font-face {
+  font-family:"Blessed Day";
+  src:url("fonts/BLESD___.eot?") format("eot"),
+  url("fonts/BLESD___.woff") format("woff"),
+  url("fonts/BLESD___.ttf") format("truetype"),
+  url("fonts/BLESD___.svg#BlessedDay") format("svg");
+  font-weight:normal;
+  font-style:large;
+}
+.index-image {
+  background-color: #ffffdd;
+  background-image: url("imgs/index.png");
+  backgound-position: top left;
+  background-repeat: no-repeat;
+  margin: 0 auto 0 auto;
+  width:803px;
+  height: 547px;
+  border: 2px solid #ffcc33;
+  border-radius: 20px;
+}
+.index-image h1{
+  margin: 3% auto 0 auto;
+  font-family: "Blessed Day";
+  font-size: 60px;
+}
+.index-image button{
+  background-image: url("imgs/letsgo.png");
+}
+.index-image p{
+  margin: 10% 45% 10% auto;
+  color: #000000;
+  padding: 2px 0 5px 15px;
+  text-transform: center;
+  line-height: 200%;
+  font-size: 15px;
+}
+.index-image btn{
+  margin: 0 auto 0 auto;
+  border: 1px solid #ffcc33;
+  border-radius: 20px;
+}
