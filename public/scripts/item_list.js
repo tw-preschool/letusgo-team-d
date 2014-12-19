@@ -15,6 +15,11 @@ function loadItems() {
             displayDescriptions(items);
             shoppingCart.setAllItemList(items);
             $(".addCartButton").click(function() {
+                $("#cart").shake({
+			                 direction: "up",
+			                 distance: 10,
+                       times: 1
+		            });
                 itemName = $(this).parents("tr").find("td:first").html();
                 shoppingCart.addItemByName(itemName);
                 updateCountText();
@@ -28,6 +33,6 @@ function displayDescriptions (items) {
         $('#items-table p').readmore({
             speed: 75,
             maxHeight: 20
-        });    
+        });
     });
 }
