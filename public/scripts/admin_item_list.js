@@ -21,10 +21,7 @@ $(document).ready(function () {
     $("[name='promotion-checkbox']").bootstrapSwitch('onText', '买二送一');
     $("[name='promotion-checkbox']").bootstrapSwitch('offText', '无');
     $("[name='promotion-checkbox']").bootstrapSwitch('onColor', 'info');
-    $('#product-table-list p').readmore({
-      speed: 75,
-      maxHeight: 42,
-    });
+    readMore();
   }
 
   function editItem(){
@@ -36,7 +33,7 @@ $(document).ready(function () {
     }
     var btnParent = $(this).parent();
     btnParent.append($('<button type="button" class="btn btn-success item-confirm">确定</button>'));
-    btnParent.append($('<button type="button" class="btn btn-primary item-cancel">取消</button>'));
+    btnParent.append($('<button type="button" class="btn btn-info item-cancel">取消</button>'));
     btnParent.find(".item-edit").remove();
     btnParent.find(".item-delete").remove();
 
@@ -109,6 +106,7 @@ $(document).ready(function () {
           });
         }
       }
+      readMore();
       recoveryEditButton($(this).parent());
       for (var i in itemData) {
         if(name == itemData[i].name){
@@ -149,7 +147,7 @@ $(document).ready(function () {
         });
       }
     }
-
+    readMore();
     recoveryEditButton($(this).parent());
   }
 
@@ -173,3 +171,10 @@ $(document).ready(function () {
     td.append(input);
   }
 });
+function readMore()
+{
+    $('#product-table-list p').readmore({
+      speed: 75,
+      maxHeight: 42,
+    });
+}
