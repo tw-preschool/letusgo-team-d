@@ -147,13 +147,13 @@ class POSApplication < Sinatra::Base
         end
     end
 
-    get '/orders/:id' do
+    get '/order/:number' do
         if session[:admin_name] != "admin"
             flash[:warning] = "请先登录再进行操作！"
             redirect '/login'
         end
         begin
-            @order = Order.find params[:id]
+            @order = Order.find_by_number params[:number]
             @shopping_cart = ShoppingCart.new
             @shopping_cart.init_with_order @order
             content_type :html
@@ -164,10 +164,11 @@ class POSApplication < Sinatra::Base
     end
 
     post '/pay' do
-        # if session[:username] == nil
-        #     flash[:warning] = "请登录后再进行购物！"
-        #     redirect '/login'
-        # end
+        if session[:username].nil?
+            flash[:warning] = "请登录后再进行购物！"
+            redirect '/login'
+        end
+
         order = Order.create
         begin
             cart_data = JSON.parse params[:cart_data]
