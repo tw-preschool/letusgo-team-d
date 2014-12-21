@@ -46,6 +46,7 @@ describe 'User Pages', :type => :feature, :js => true do
     end
 
     it "should get an item in shopping_cart when add items" do
+      page.set_rack_session username: "user@user.com"
       visit '/pages/items'
       page.find(:xpath, '//button[../../td[contains(.,"Apple")]]').click
       1.upto(3) { page.find(:xpath, '//button[../../td[contains(.,"雪碧")]]').click }

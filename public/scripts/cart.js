@@ -92,4 +92,19 @@ $(document).ready(function () {
             $("#summary").text(summary.toFixed(2));
         }
     });
+    
+    $(window).bind('beforeunload',function(){
+        $.ajax({
+            url: '/update/cart_data',
+            type: 'post',
+            data: { cart_data: window.localStorage.shoppingCart },
+            dataType: 'text',
+
+            error: function() {
+                console.log('与后台购物车数据同步失败');
+            },
+
+            success: function (items) {}
+        });
+    });
 });

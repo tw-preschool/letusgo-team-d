@@ -51,6 +51,7 @@ class POSApplication < Sinatra::Base
         if session[:admin_name] == "admin"
             redirect '/admin/orders'
         else
+            @referer_url = request.env['HTTP_REFERER']
             content_type :html
             erb :login
         end
@@ -112,6 +113,7 @@ class POSApplication < Sinatra::Base
           session[:username] = @user.username
           flash[:success] = "登录成功！"
           @shopping_cart = @user.cart_data.to_s
+          @referer_url = params[:referer_url]
           content_type :html
           erb :'/pages/user_login_success'
         else

@@ -2,20 +2,19 @@ $(document).ready(function () {
     loadItems();
 
     $(window).bind('beforeunload',function(){
-        console.log('开始与后台同步购物车数据');
-        $.ajax({
-            url: '/update/cart_data',
-            type: 'post',
-            data: { cart_data: window.localStorage.shoppingCart },
-            dataType: 'text',
+        $(window).bind('beforeunload',function(){
+            $.ajax({
+                url: '/update/cart_data',
+                type: 'post',
+                data: { cart_data: window.localStorage.shoppingCart },
+                dataType: 'text',
 
-            error: function() {
-                console.log('Failed to loading item list');
-            },
+                error: function() {
+                    console.log('与后台购物车数据同步失败');
+                },
 
-            success: function (items) {
-                itemList = items;
-            }
+                success: function (items) {}
+            });
         });
     });
 });
