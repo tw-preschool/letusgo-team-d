@@ -6,7 +6,7 @@ $("#pay").click(function(){
     postForm.style.display = 'none';
     var postText = document.createElement("textarea");
     postText.name = "cart_data";
-    postText.value = window.sessionStorage.shoppingCart;
+    postText.value = window.localStorage.shoppingCart;
     postForm.appendChild(postText);
     document.body.appendChild(postForm);
     postForm.submit();

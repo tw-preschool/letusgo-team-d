@@ -9,7 +9,7 @@ function ShoppingCart() {
         allItemList = list;
     };
 
-    var itemListInStorage = window.sessionStorage.shoppingCart;
+    var itemListInStorage = window.localStorage.shoppingCart;
     var itemList = (itemListInStorage) ? JSON.parse(itemListInStorage) : [];
     addItemListToStorage();
 
@@ -84,7 +84,7 @@ function ShoppingCart() {
     };
 
     function addItemListToStorage() {
-        window.sessionStorage.shoppingCart = JSON.stringify(itemList);
+        window.localStorage.shoppingCart = JSON.stringify(itemList);
     }
 
     function getItemFrom(itemName) {

@@ -1,5 +1,23 @@
 $(document).ready(function () {
     loadItems();
+
+    $(window).bind('beforeunload',function(){
+        console.log('开始与后台同步购物车数据');
+        $.ajax({
+            url: '/update/cart_data',
+            type: 'post',
+            data: { cart_data: window.localStorage.shoppingCart },
+            dataType: 'text',
+
+            error: function() {
+                console.log('Failed to loading item list');
+            },
+
+            success: function (items) {
+                itemList = items;
+            }
+        });
+    });
 });
 
 function loadItems() {

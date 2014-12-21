@@ -35,13 +35,15 @@
           <a href="/user/register" id="register">注册</a>
         </li>
       <% end %>
-      <li class="pull-right">
-        <div id="cart">
-          <a href="/views/cart.html">
-            <span class="glyphicon glyphicon-shopping-cart"></span>购物车 (<span id="count"></span>)
-          </a>
-        </div>
-      </li>
+      <% if session[:username] %>
+        <li class="pull-right">
+          <div id="cart">
+            <a href="/views/cart.html">
+              <span class="glyphicon glyphicon-shopping-cart"></span>购物车 (<span id="count"></span>)
+            </a>
+          </div>
+        </li>
+      <% end %>
     </ul>
   </div>
 </nav>

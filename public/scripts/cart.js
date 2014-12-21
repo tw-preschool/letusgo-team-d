@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // var cartList = JSON.parse(window.sessionStorage.shoppingCart);
+    // var cartList = JSON.parse(window.localStorage.shoppingCart);
     var shoppingCart = new ShoppingCart();
 
     _(shoppingCart.getItemList()).each(function (item) {
@@ -61,10 +61,10 @@ $(document).ready(function () {
             postForm.enctype = 'multipart/form-data';
             // postForm.dataType = 'json';
             postForm.style.display = 'none';
-            // postForm.dataset = window.sessionStorage.shoppingCart;
+            // postForm.dataset = window.localStorage.shoppingCart;
             var postText = document.createElement("textarea");
             postText.name = "cart_data";
-            postText.value = window.sessionStorage.shoppingCart;
+            postText.value = window.localStorage.shoppingCart;
             postForm.appendChild(postText);
             document.body.appendChild(postForm);
             postForm.submit();

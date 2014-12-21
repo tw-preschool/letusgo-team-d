@@ -14,6 +14,13 @@ describe 'User Pages', :type => :feature, :js => true do
     it "should display correct content at index page" do
       visit '/'
       expect(page).to have_content("Welcome to Let's Go")
+      expect(page).not_to have_selector(:xpath, '//span[@id="count"][contains(.,"0")]')
+    end
+
+    it "should display correct content at index page" do
+      page.set_rack_session username: "user@user.com"
+      visit '/'
+      expect(page).to have_content("Welcome to Let's Go")
       expect(page).to have_selector(:xpath, '//span[@id="count"][contains(.,"0")]')
     end
   end

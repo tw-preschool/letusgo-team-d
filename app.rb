@@ -107,12 +107,13 @@ class POSApplication < Sinatra::Base
     end
 
     post '/userLogin' do
-
         @user = User.authenticate(params[:username], params[:password])
         if @user
           session[:username] = @user.username
           flash[:success] = "登录成功！"
-          redirect '/'
+          @shopping_cart = @user.cart_data.to_s
+          content_type :html
+          erb :'/pages/user_login_success'
         else
           flash[:error] = "用户名或密码错误，请确认后重试"
           redirect '/login'
@@ -168,27 +169,55 @@ class POSApplication < Sinatra::Base
             flash[:warning] = "请登录后再进行购物！"
             redirect '/login'
         end
+        current_user = User.find_by_username session[:username]
 
         order = Order.create
+        pay_success_msg = "付款成功，欢迎继续选购！"
         begin
             cart_data = JSON.parse params[:cart_data]
             @shopping_cart = ShoppingCart.new()
             @shopping_cart.init_with_data cart_data
             @shopping_cart.update_price
-            raise if @shopping_cart.shopping_list == []
-            order.init_by @shopping_cart
+            if @shopping_cart.shopping_list == []
+                order.delete
+                pay_success_msg = "您选择了一个空订单，现已将购物车清空"
+            else
+                order.init_by @shopping_cart
+            end
         rescue RangeError => e
             order.destory
             flash[:error] = "#{e.message}"
             redirect '/pages/cart'
         rescue
+            order.destory
             flash[:error] = "付款失败，请稍后再试！"
             redirect '/pages/cart'
         end
 
-        flash[:success] = "付款成功，欢迎继续选购！"
+        current_user.update_attributes(:cart_data => nil)
+        flash[:success] = pay_success_msg
         content_type :html
         erb :'/pages/pay_success'
+    end
+
+    get '/cart_data' do
+        if session[:username].nil?
+            flash[:warning] = "请登录后再进行购物！"
+            redirect '/login'
+        else
+            current_user = User.find_by_username session[:username]
+            [201, current_user.cart_data.to_json]
+        end
+    end
+
+    post '/update/cart_data' do
+        if session[:username].nil?
+            flash[:warning] = "请登录后再进行购物！"
+            redirect '/login'
+        end
+        current_user = User.find_by_username session[:username]
+        current_user.cart_data = params[:cart_data]
+        current_user.save
     end
 
     post '/products/update' do
