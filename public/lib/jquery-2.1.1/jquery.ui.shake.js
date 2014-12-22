@@ -22,6 +22,8 @@
 				right: el.css("right")
 			};
 
+			var top=$(this).offset.top;
+
 			el.css("position", "relative");
 
 			// Adjust
@@ -38,6 +40,7 @@
 			el.animate(animation, o.speed, o.easing);
 			for (var i = 1; i < o.times; i++) { // Shakes
 				el.animate(animation1, o.speed, o.easing).animate(animation2, o.speed, o.easing);
+				el.css("top",top);
 			};
 			el.animate(animation1, o.speed, o.easing).
 			animate(animation, o.speed / 2, o.easing, function(){ // Last shake

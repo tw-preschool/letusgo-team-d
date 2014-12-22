@@ -34,8 +34,9 @@ function loadItems() {
             $(".addCartButton").click(function() {
                 $("#cart").shake({
 			                 direction: "up",
-			                 distance: 10,
-                       times: 1
+			                 distance: 5,
+                       times: 1,
+                       speed: 100
 		            });
                 itemName = $(this).parents("tr").find("td:first").html();
                 shoppingCart.addItemByName(itemName);

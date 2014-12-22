@@ -102,8 +102,11 @@ class POSApplication < Sinatra::Base
         end
         redirect "/admin/orders"
       else
+        @username = params[:username]
+        @password = params[:password]
         flash[:error] = "管理员用户名/密码错误，请重试！"
-        redirect '/login'
+        content_type :html
+        erb  :'/login'
       end
     end
 
@@ -117,8 +120,11 @@ class POSApplication < Sinatra::Base
           content_type :html
           erb :'/pages/user_login_success'
         else
+          @username = params[:username]
+          @password = params[:password]
           flash[:error] = "用户名或密码错误，请确认后重试"
-          redirect '/login'
+          content_type :html
+          erb  :'/login'
         end
     end
 
