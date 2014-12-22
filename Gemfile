@@ -9,6 +9,7 @@ gem 'rack-flash3'
 gem 'thin'
 gem 'sinatra-authorize'
 gem 'bcrypt-ruby'
+gem 'mail'
 
 group :development, :test do
     gem 'shotgun'

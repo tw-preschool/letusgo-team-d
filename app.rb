@@ -8,6 +8,7 @@ require 'sinatra/reloader'
 require 'sinatra/authorize'
 require 'rack/contrib'
 require 'active_record'
+require 'mail'
 
 require 'json'
 
@@ -271,6 +272,22 @@ class POSApplication < Sinatra::Base
                             :telephone => params[:telephone])
 
         if user.save
+          smtp = { :address => 'smtp.163.com',
+                   :port => 25,
+                   :domain => '163.com',
+                   :user_name => 'wenxiu1991@163.com',
+                   :password => 'wx1124199119',
+                   :enable_starttls_auto => true,
+                   :openssl_verify_mode => 'none'
+                 }
+          Mail.defaults { delivery_method :smtp, smtp }
+          mail = Mail.new do
+               from 'wenxiu1991@163.com'
+               to user.username
+               subject user.username+"，欢迎加入Let's Go"
+               body 'body:hello send mail way 2 :)'
+             end
+            mail.deliver!
             flash[:success]="注册成功，请登录"
             redirect '/login'
 
