@@ -10,6 +10,7 @@ require 'rack/contrib'
 require 'active_record'
 require 'mail'
 
+
 require 'json'
 
 require './models/product'
@@ -265,6 +266,7 @@ class POSApplication < Sinatra::Base
 
 
     post '/user/register' do
+        context = binding
         user = User.create(:username => params[:username],
                             :password => params[:password],
                             :name => params[:name],
@@ -280,13 +282,18 @@ class POSApplication < Sinatra::Base
                    :enable_starttls_auto => true,
                    :openssl_verify_mode => 'none'
                  }
+
           Mail.defaults { delivery_method :smtp, smtp }
           mail = Mail.new do
                from 'wenxiu1991@163.com'
                to user.username
                subject user.username+"，欢迎加入Let's Go"
-               body 'body:hello send mail way 2 :)'
-             end
+               html_part do
+                   content_type 'text/html;charset=UTF-8'
+                   body  ERB.new(File.read("./views/pages/mail.html.erb")).result(context)
+
+end
+          end
             mail.deliver!
             flash[:success]="注册成功，请登录"
             redirect '/login'
