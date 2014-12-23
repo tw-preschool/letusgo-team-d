@@ -1,0 +1,30 @@
+<%= erb :'layout/_nav_admin' %>
+<%= erb :'layout/_flash_page' %>
+
+<div class="container table-responsive">
+    <table class="table table-bordered table-hover">
+      <% if @orders.size == 0%>
+        <div class="alert-warning">您还没有购买任何商品哦！</div>
+      <% else %>
+        <caption class="default-table-title">订单列表</caption>
+        <thead>
+            <tr>
+                <th>订单编号</th>
+                <th>订单时间</th>
+                <th>订单金额</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @orders.each do |order| %>
+                <tr>
+                    <td id='order_number'><%= "#{order.number}" %></td>
+                    <td><%= "#{order.time.strftime('%Y-%m-%d %H:%M:%S')}" if order.time.present? %></td>
+                    <td><%= "#{format("%0.2f", order.sum)} 元" %></td>
+                    <td><a class="btn btn-primary btn-detail" href= <%= "/order/#{order.number}" %> ><span class="glyphicon glyphicon-zoom-in"></span> 查看详细信息</a></td>
+                </tr>
+            <% end %>
+        </tbody>
+      <% end %>
+    </table>
+</div>
