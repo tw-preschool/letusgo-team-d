@@ -52,6 +52,9 @@ class POSApplication < Sinatra::Base
     get '/login' do
         if session[:admin_name] == "admin"
             redirect '/admin/orders'
+        elsif session[:username].present?
+            content_type :html
+            erb :'/pages/items'
         else
             @referer_url = request.env['HTTP_REFERER']
             content_type :html
@@ -144,8 +147,13 @@ class POSApplication < Sinatra::Base
     end
 
     get '/user/register' do
-        content_type :html
-        erb :'pages/register'
+        if session[:username].present?
+            content_type :html
+            erb :'/pages/items'
+        else
+            content_type :html
+            erb :'pages/register'
+        end
     end
 
     get '/products' do
