@@ -92,6 +92,14 @@ class POSApplication < Sinatra::Base
         redirect '/login'
       end
     end
+    get '/user/orders' do
+      current_user = User.find_by_username session[:username]
+      user_id = current_user.id
+      @orders = Order.where(user_id: user_id).order("time DESC")
+      content_type :html
+      erb :'pages/user_order_list'
+    end
+
 
     post '/adminLogin' do
       if params['username'] == "admin" and params["password"] == "admin"
@@ -159,16 +167,21 @@ class POSApplication < Sinatra::Base
     end
 
     get '/order/:number' do
-        if session[:admin_name] != "admin"
+        @order = Order.find_by_number params[:number]
+        current_user = User.find(@order.user_id)
+        if session[:admin_name] != "admin" and session[:username] != current_user.username
             flash[:warning] = "请先登录再进行操作！"
             redirect '/login'
         end
         begin
-            @order = Order.find_by_number params[:number]
             @shopping_cart = ShoppingCart.new
             @shopping_cart.init_with_order @order
             content_type :html
-            erb :'/pages/admin_order_detail'
+            if session[:admin_name]
+              erb :'/pages/admin_order_detail'
+            else
+              erb :'/pages/user_order_detail'
+            end
         rescue  ActiveRecord::RecordNotFound => e
             [404, {:message => e.message}.to_json]
         end
@@ -182,6 +195,7 @@ class POSApplication < Sinatra::Base
         current_user = User.find_by_username session[:username]
 
         order = Order.create
+        order.user_id = current_user.id
         pay_success_msg = "付款成功，欢迎继续选购！"
         begin
             cart_data = JSON.parse params[:cart_data]
