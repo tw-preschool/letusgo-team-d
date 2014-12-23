@@ -309,7 +309,7 @@ class POSApplication < Sinatra::Base
 end
           end
             mail.deliver!
-            flash[:success]="注册成功，请登录"
+            flash[:success]="注册成功，验证邮件已发送至您的邮箱，请注意查收"
             redirect '/login'
 
         else
