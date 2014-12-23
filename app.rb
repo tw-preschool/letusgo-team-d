@@ -212,11 +212,14 @@ class POSApplication < Sinatra::Base
 
     get '/cart_data' do
         if session[:username].nil?
-            flash[:warning] = "请登录后再进行购物！"
-            redirect '/login'
+            [401, "You are not logged in as User!"]
         else
             current_user = User.find_by_username session[:username]
-            [201, current_user.cart_data.to_json]
+            if current_user.present?
+                [201, "#{current_user.cart_data}"]
+            else
+                halt 500, {:message => "用户不存在"}.to_json
+            end
         end
     end
 
@@ -226,8 +229,12 @@ class POSApplication < Sinatra::Base
             redirect '/login'
         end
         current_user = User.find_by_username session[:username]
-        current_user.cart_data = params[:cart_data]
-        current_user.save
+        if current_user.present?
+            current_user.cart_data = params[:cart_data]
+            current_user.save
+        else
+            halt 500, {:message => "用户不存在"}.to_json
+        end
     end
 
     post '/products/update' do
@@ -291,8 +298,7 @@ class POSApplication < Sinatra::Base
                html_part do
                    content_type 'text/html;charset=UTF-8'
                    body  ERB.new(File.read("./views/pages/mail.html.erb")).result(context)
-
-end
+               end
           end
             mail.deliver!
             flash[:success]="注册成功，请登录"
