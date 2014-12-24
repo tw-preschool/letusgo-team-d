@@ -19,7 +19,7 @@ describe "register page", :type =>:feature do
       fill_in 'register-telephone', :with => '15155555555'
       click_button 'loginSubmit'
       sleep 1
-      expect(page).to have_content("注册成功")
+      expect(page).to have_content("您已注册成功，请查收邮件！")
       fill_in 'login-name', :with => "d@outlook.com"
       fill_in 'login-password', :with => "111222"
       select "普通用户", :from => "select"

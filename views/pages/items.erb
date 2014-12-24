@@ -26,7 +26,7 @@
             <td><p><%=item.description%></p></td>
             <td>
               <% if session[:username].present? %>
-                <button type="button" class="btn btn-primary addCartButton">加入购物车</button>
+                <button type="button" class="btn btn-primary addCartButton" id="addToCart">加入购物车</button>
               <% else %>
                 <a href="/login" class="btn btn-primary">加入购物车</a>
               <% end %>
