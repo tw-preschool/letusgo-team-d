@@ -1,4 +1,4 @@
-<%= erb :'layout/_nav_admin' %>
+<%= erb :'layout/_nav_user' %>
 <%= erb :'layout/_flash_page' %>
 
 <div class="container table-responsive">
@@ -28,3 +28,7 @@
       <% end %>
     </table>
 </div>
+<% content_for :script_chunk do %>
+  <script type="text/javascript" src="/scripts/model/shopping_cart.js"></script>
+  <script type="text/javascript" src="/scripts/main.js"></script>
+<% end %>

@@ -96,11 +96,16 @@ class POSApplication < Sinatra::Base
       end
     end
     get '/user/orders' do
-      current_user = User.find_by_username session[:username]
-      user_id = current_user.id
-      @orders = Order.where(user_id: user_id).order("time DESC")
-      content_type :html
-      erb :'pages/user_order_list'
+      if session[:username]
+        current_user = User.find_by_username session[:username]
+        user_id = current_user.id
+        @orders = Order.where(user_id: user_id).order("time DESC")
+        content_type :html
+        erb :'pages/user_order_list'
+      else
+        flash[:warning] = "请先登录再进行操作！"
+        redirect '/login'
+      end
     end
 
 
@@ -323,7 +328,7 @@ class POSApplication < Sinatra::Base
                end
           end
             mail.deliver!
-            flash[:success]="注册成功，验证邮件已发送至您的邮箱，请注意查收"
+            flash[:success]="您已注册成功，请查收邮件！"
             redirect '/login'
 
         else

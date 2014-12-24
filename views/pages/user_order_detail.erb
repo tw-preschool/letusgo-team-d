@@ -1,4 +1,4 @@
-<%= erb :'layout/_nav_admin' %>
+<%= erb :'layout/_nav_user' %>
 
 <div class="container">
 <div class="pay-table table-responsive">
@@ -94,7 +94,11 @@
 </div>
 
 <div class="row col-sm-12 text-center">
-  <a class="btn btn-info btn-back" href="/admin/orders"><span class="glyphicon glyphicon-arrow-left">返回上一页</a>
+  <a class="btn btn-info btn-back" href="/user/orders"><span class="glyphicon glyphicon-arrow-left">返回上一页</a>
 </div>
 
 </div>
+<% content_for :script_chunk do %>
+  <script type="text/javascript" src="/scripts/model/shopping_cart.js"></script>
+  <script type="text/javascript" src="/scripts/main.js"></script>
+<% end %>

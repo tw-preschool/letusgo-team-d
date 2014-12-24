@@ -92,7 +92,7 @@ $(document).ready(function () {
             $("#summary").text(summary.toFixed(2));
         }
     });
-    
+
     $(window).bind('beforeunload',function(){
         $.ajax({
             url: '/update/cart_data',

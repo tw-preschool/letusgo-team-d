@@ -13,7 +13,7 @@ function updataShoppingCart () {
     $.ajax({
         url: '/cart_data',
         type: 'get',
-        dataType: "text",  
+        dataType: "text",
 
         error: function(error) {
             console.log(error);
