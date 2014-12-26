@@ -348,8 +348,12 @@ class POSApplication < Sinatra::Base
     end
 
     post '/pages/payment' do
-        cart_data = JSON.parse params[:cart_data]
-        @shopping_cart = ShoppingCart.new()
+        if params[:cart_data] == ""
+            cart_data = []
+        else
+            cart_data = JSON.parse params[:cart_data]
+        end
+        @shopping_cart = ShoppingCart.new
         @shopping_cart.init_with_data cart_data
         @shopping_cart.update_price
 
