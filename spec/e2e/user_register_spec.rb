@@ -9,9 +9,10 @@ describe "register page", :type =>:feature do
 
   context "register", :js => true do
     it "success when input correctly",focus: true do
+      User.destroy_all
       visit '/user/register'
 
-      fill_in 'register-username', :with => 'd@outlook.com'
+      fill_in 'register-username', :with => '2901222852@qq.com'
       fill_in 'register-password', :with => '111222'
       fill_in 'register-confirmPassword', :with => '111222'
       fill_in 'register-name', :with => 'd'
@@ -19,13 +20,13 @@ describe "register page", :type =>:feature do
       fill_in 'register-telephone', :with => '15155555555'
       click_button 'loginSubmit'
       sleep 1
-      expect(page).to have_content("您已注册成功，请查收邮件！")
-      fill_in 'login-name', :with => "d@outlook.com"
+      # expect(page).to have_content("您已注册成功，请查收邮件！")
+      fill_in 'login-name', :with => "2901222852@qq.com"
       fill_in 'login-password', :with => "111222"
       select "普通用户", :from => "select"
       click_button 'login-button'
       added_item = User.last
-      expect(added_item.username).to eq 'd@outlook.com'
+      expect(added_item.username).to eq '2901222852@qq.com'
       expect(added_item.name).to eq 'd'
       expect(added_item.address).to eq '西电'
       expect(added_item.telephone).to eq '15155555555'

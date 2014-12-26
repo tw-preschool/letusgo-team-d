@@ -34,7 +34,7 @@ function loadItems() {
                        times: 1,
                        speed: 100
 		            });
-                itemName = $(this).parents("tr").find("td:first").html();
+                itemName = $(this).parents("tr").find("dt").html();
                 shoppingCart.addItemByName(itemName);
                 updateCountText();
             });

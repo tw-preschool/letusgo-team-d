@@ -6,10 +6,10 @@ describe 'User Order List', :type => :feature, :js => true do
 
     before :each do
        User.destroy_all
-       User.create(username:"zhaomengru@yahoo.com",password:"123456")
+       User.create(username:"2901222852@qq.com",password:"123456")
        visit '/login'
 
-       fill_in 'login-name', :with => "zhaomengru@yahoo.com"
+       fill_in 'login-name', :with => "2901222852@qq.com"
        fill_in 'login-password', :with => "123456"
        select "普通用户", :from => "select"
        click_button 'login-button'
@@ -24,7 +24,7 @@ describe 'User Order List', :type => :feature, :js => true do
 
     it "should see the order when user's order is not empty" do
       #create the order for the current user
-      page.set_rack_session username: "zhaomengru@yahoo.com"
+      page.set_rack_session username: "2901222852@qq.com"
       Order.destroy_all
       username = page.get_rack_session_key('username')
       id = User.find_by_username(username).id

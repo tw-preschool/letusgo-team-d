@@ -310,13 +310,12 @@ class POSApplication < Sinatra::Base
         if user.save
           smtp = { :address => 'smtp.163.com',
                    :port => 25,
-                   :domain => '163.com',
+                   :domain => 'smtp.163.com',
                    :user_name => 'wenxiu1991@163.com',
                    :password => 'wx1124199119',
                    :enable_starttls_auto => true,
                    :openssl_verify_mode => 'none'
                  }
-
           Mail.defaults { delivery_method :smtp, smtp }
           mail = Mail.new do
                from 'wenxiu1991@163.com'
@@ -327,10 +326,15 @@ class POSApplication < Sinatra::Base
                    body  ERB.new(File.read("./views/pages/mail.html.erb")).result(context)
                end
           end
+          begin
             mail.deliver!
             flash[:success]="您已注册成功，请查收邮件！"
             redirect '/login'
-
+          rescue Exception => e
+              puts e.message
+              flash[:error]="注册邮件发送失败"
+              redirect '/login'
+          end
         else
             flash[:error]="注册失败，请重新注册"
             redirect '/user/register'

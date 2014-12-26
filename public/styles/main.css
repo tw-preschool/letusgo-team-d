@@ -1,3 +1,12 @@
+@font-face {
+  font-family:"Blessed Day";
+  src:url("fonts/BLESD___.eot?") format("eot"),
+  url("fonts/BLESD___.woff") format("woff"),
+  url("fonts/BLESD___.ttf") format("truetype"),
+  url("fonts/BLESD___.svg#BlessedDay") format("svg");
+  font-weight:normal;
+  font-style:large;
+}
 .nav li{
   float:left;
   margin:10px;
@@ -6,7 +15,7 @@
 .nav li a{
   display:inline;
   font-size:18px;
-  color:lightgray;
+  color:#ccc;
 }
 .nav .active a{
   color:white;
@@ -37,16 +46,29 @@
 }
 #items-list{
   font-size:25px;
-  padding-top:15px;
-  padding-bottom:10px;
-  background-color:#E0E0E0;
+  padding: 15px 0 10px 0;
+  background-color:lightsalmon;
+}
+.items-col-title{
+  font-size: 15px;
+  line-height: 25px;
 }
 th{
   width:300px;
 }
 .pay-table{
   border:1px solid #D0D0D0;
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px pink;
   padding: 0px;
+}
+
+.item-col-name{
+  width: 30%;
+  text-align: left;
+}
+.item-col-name dd{
+ text-indent: 20px;
 }
 #summary{
   margin-top:10px;
@@ -61,7 +83,7 @@ th{
   font-size:25px;
   padding-top:15px;
   padding-bottom:10px;
-  background-color:#E0E0E0;
+  background-color:lightsalmon;
 }
 #item-num{
   width:31px;
@@ -93,7 +115,7 @@ th{
   padding-top:15px;
   padding-bottom:10px;
   text-align: center;
-  background-color:#F0F0F0;
+  background-color: lightsalmon;
 }
 @-webkit-keyframes spaceboots {
 	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
