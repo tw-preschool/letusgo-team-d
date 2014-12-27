@@ -318,6 +318,11 @@ class POSApplication < Sinatra::Base
                from 'letusgo.com'
                to user.username
                subject user.username+"，欢迎加入Let's Go"
+               attachment = "./public/styles/imgs/logo.jpg"
+               filePath = './public/styles/imgs/logo.jpg'
+               add_file filePath
+               pic = attachments[filePath]
+
                html_part do
                    content_type 'text/html;charset=UTF-8'
                    body  ERB.new(File.read("./views/pages/mail.html.erb")).result(context)
