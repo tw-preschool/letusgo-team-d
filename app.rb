@@ -308,17 +308,14 @@ class POSApplication < Sinatra::Base
                             :telephone => params[:telephone])
 
         if user.save
-          smtp = { :address => 'smtp.163.com',
+          smtp = { :address => 'localhost',
                    :port => 25,
-                   :domain => 'smtp.163.com',
-                   :user_name => 'wenxiu1991@163.com',
-                   :password => 'wx1124199119',
                    :enable_starttls_auto => true,
                    :openssl_verify_mode => 'none'
                  }
           Mail.defaults { delivery_method :smtp, smtp }
           mail = Mail.new do
-               from 'wenxiu1991@163.com'
+               from 'letusgo.com'
                to user.username
                subject user.username+"，欢迎加入Let's Go"
                html_part do
