@@ -17,18 +17,19 @@
       <tbody id="items-table">
         <% Product.all.each do |item| %>
           <%if item.quantity > 0%>
-          <tr class="items-col-content">
+          <tr class="items-col-content" id="item_<%=item.id %>">
             <td class="item-col-name">
               <dl>
                 <dt><%=item.name%></dt>
                 <dd><%=item.description%></dd>
+              </dl>
             </td>
             <td><%=item.price%></td>
             <td><%=item.unit%></td>
             <td><%=item.quantity%></td>
             <td>
               <% if session[:username].present? %>
-                <button type="button" class="btn btn-primary addCartButton" id="addToCart">加入购物车</button>
+                <button type="button" class="btn btn-primary addCartButton" id="addToCart_<%=item.id%>">加入购物车</button>
               <% else %>
                 <a href="/login" class="btn btn-primary">加入购物车</a>
               <% end %>

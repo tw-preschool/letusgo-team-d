@@ -23,19 +23,33 @@ describe 'User Order List', :type => :feature, :js => true do
 
 
     it "should see the order when user's order is not empty" do
-      #create the order for the current user
-      page.set_rack_session username: "2901222852@qq.com"
-      Order.destroy_all
-      username = page.get_rack_session_key('username')
-      id = User.find_by_username(username).id
-      Order.create(id: 1, user_id: id, number: "14193952032", sum: 3.0, discount: 0.0, time: "2014-12-24 04:26:43")
-      #return to the index page,click the "我的订单" button
-      visit '/'
+  
+       Product.destroy_all
+       Product.create(name: "香蕉", price: 2.5, unit: "斤", quantity: 2, description:"贱卖了贱卖了")
+       Product.create(name: "雪碧", price: 3.5, unit: "瓶", quantity: 20)
+
+      visit '/pages/items'
+      click_button 'addToCart_2'
+
+      visit '/views/cart.html'
+      expect(page).to have_content("雪碧")
+      click_button 'pay'
+      expect(page).to have_content("付款")
+      click_button 'pay'
 
       page.find(:xpath,"//a[contains(@href,'#')]").click
       page.find(:xpath,"//a[contains(@href,'/user/orders')]").click
 
-      expect(page).to have_content("14193952032")
+      expect(page).to have_content ("查看详细信息")
+
+      order =Order.find_by_id(1)
+      page.find(:xpath,"//a[contains(@href,'/order/#{order.number}')]").click
+
+      expect(page).to have_content("雪碧")
+      expect(page).to have_content("3.5")
+      expect(page).to have_content("瓶")
+      expect(page).to have_content("购物清单")
+      expect(page).to have_content("订单详细信息")
 
     end
 end
