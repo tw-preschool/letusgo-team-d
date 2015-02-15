@@ -1,3 +1,3 @@
 require './app'
 
-run POSApplication.new
+run FaqApplication.new

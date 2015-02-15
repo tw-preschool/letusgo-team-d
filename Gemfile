@@ -5,11 +5,8 @@ gem 'sqlite3'
 gem 'activerecord'
 gem 'rack-contrib'
 gem 'sinatra-contrib'
-gem 'rack-flash3'
 gem 'thin'
-gem 'sinatra-authorize'
-gem 'bcrypt-ruby'
-gem 'mail'
+gem 'sinatra-jsonp'
 
 group :development, :test do
     gem 'shotgun'
